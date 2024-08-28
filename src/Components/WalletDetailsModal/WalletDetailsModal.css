@@ -1,0 +1,13 @@
+.crpt {
+    background-color: #FFAD31 !important;
+}
+
+.bi-copy {
+    position: absolute;
+    right: 1.5rem;
+    top: 0.6rem;
+}
+
+.bi-copy:hover {
+    cursor: pointer;
+}
