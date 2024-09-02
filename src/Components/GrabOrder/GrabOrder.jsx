@@ -195,7 +195,7 @@ const GrabOrder = () => {
     <div className="pb-5 mb-5 pt-5">
       <NavigationBar2 />
       <div className="container py-5">
-        <h1 className="text-center fw-bold my-5">{t("order")}</h1>
+        <h1 className="text-center fw-bold my-5">Order</h1>
         <div className="row align-items-center min-vh-100">
           <div className="col-lg-6 col-md-12 col-sm-12 mt-5">
             <div className="card parent-card rounded-5 p-4 border-0">
@@ -204,7 +204,7 @@ const GrabOrder = () => {
                   <img src={currentImage} alt="current-icon" /> 
                 </div> */}
                 <p className="text-light h4">
-                  {t("current_balance")} <i className="bi bi-chevron-right"></i>
+                  Current Balance <i className="bi bi-chevron-right"></i>
                 </p>
                 <div>
                   <p className="current-balance fw-bold fs-2">
@@ -224,7 +224,7 @@ const GrabOrder = () => {
                 <div>
                   <img src={data} alt="data-icon" className="img-fluid" />
                 </div>
-                <p>{t("yesterday_commision")}</p>
+                <p>Yesterday Commision</p>
               </div>
               <div className="px-4">
                 <p className="commission fw-bold fs-1">KSh {commission1}</p>
@@ -246,7 +246,7 @@ const GrabOrder = () => {
                       gapPosition="bottom"
                     />
                     <h2 className="order-count position-absolute top-50 start-0 end-0 translate-middle-y display-4 w-75 mx-4 my-3 fw-bold text-center">
-                      {t("order")} <span id="count">{orderCount}</span>
+                      Order <span id="count">{orderCount}</span>
                     </h2>
                   </div>
                 </div>
@@ -255,7 +255,7 @@ const GrabOrder = () => {
                   <div>
                     <img src={data} alt="data-icon" className="img-fluid" />
                   </div>
-                  <p>{t("today_commision")}</p>
+                  <p>Today Commision</p>
                 </div>
                 <div className="px-4">
                   <p className="commission fw-bold fs-1">KSh {commission2}</p>
@@ -269,7 +269,7 @@ const GrabOrder = () => {
             className="btn w-75 py-3 fw-bold rounded-pill fs-2 grab text-light"
             onClick={handleGrabClick}
           >
-            {t("start_grab")}
+            Start Grabing
           </button>
         </div>
       </div>

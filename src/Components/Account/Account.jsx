@@ -432,7 +432,7 @@ const Account = () => {
                               <input
                                 type="number"
                                 className="form-control"
-                                placeholder={t('enter_amount')}
+                                placeholder="Enter_amount"
                                 value={amount}
                                 onChange={(e) => setAmount(Math.max(0, parseFloat(e.target.value)))}
                                 min="0"
@@ -451,7 +451,7 @@ const Account = () => {
                               type="button"
                               className="recharge text-light fw-bold rounded-pill text-decoration-none w-75 border-0 py-2"
                             >
-                              {t('recharge_now')}
+                              Recharge Now
                             </Link>
                           )}
                         </div>
