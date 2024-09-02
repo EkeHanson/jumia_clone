@@ -261,7 +261,7 @@ const Account = () => {
                     >
                       {/* <i className="bi bi-wallet2 fs-3"></i>  */}
                       <img src={img5} className="img-fluid mb-2" alt="" />{" "}
-                      {t('quick_withdrawal')}
+                      Quick Withdrawal
                     </Link>
                   </div>
                   <div className="col-lg-4 col-md-6 col-sm-6">
@@ -271,7 +271,7 @@ const Account = () => {
                     >
                       {/* <i className="bi bi-cash-stack fs-3"></i>  */}
                       <img src={img4} className="img-fluid mb-3" alt="" />{" "}
-                      {t('topup')}
+                      Top Up
                     </Link>
                   </div>
                 </div>
@@ -293,7 +293,7 @@ const Account = () => {
                     </button>
                   </div>
                   <div className="modal-body mx-auto">
-                    <p>{t('select_recharge_amount')}...</p>
+                    <p>Select Recharge Amount...</p>
                     <hr />
                     <div className="container">
                       <div className="row gy-3">
