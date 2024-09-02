@@ -62,75 +62,79 @@ const GrabOrder = () => {
     //   setMessageF("Forbidden, contact Administrator");
     //   setShowModalF(true);
 
-    if (
-      (user_level === "VIP1" && orderCount === 0 && balance < 300) ||
-      (user_level === "VIP2" && orderCount === 0 && balance <= 39)
-    ) {
-      // setMessageF("Forbidden, contact Administrator");
-      setMessageF(t("forbidden_contact_administrator"));
+    if (user_level === "VIP1" && orderCount === 0 && balance < 300){
+        setMessageF("Forbidden, contact Administrator");
+        // setMessageF(t("forbidden_contact_administrator"));
+         setShowModalF(true);
+      } 
+      else if (user_level === "VIP2" && orderCount === 0 && balance < 1200) {
+   
+      setMessageF("Forbidden, contact Administrator");
+     // setMessageF(t("forbidden_contact_administrator"));
       setShowModalF(true);
-    } else if (user_level === "VIP2" && orderCount === 1 && balance < 19) {
-      // setMessageF("Top up $20 to Continue Grabbing");
-      setMessageF(t("Top_up_$20"));
-
       
+      }else if (user_level === "VIP2" && orderCount === 1 && balance < 500) {
+   
+      setMessageF("Top up KSh 500 to Continue Grabbing");
+     // setMessageF(t("forbidden_contact_administrator"));
       setShowModalF(true);
-    } else if (user_level === "VIP3" && orderCount === 0 && balance < 70) {
-      // setMessageF("Top up $70 to start Grabbing");
+      
+    } else if (user_level === "VIP3" && orderCount === 0 && balance < 2000) {
+      setMessageF("Forbidden Contact Administrator");
       // setMessageF(t("Top_up_$70"));
-      setMessageF(t("forbidden_contact_administrator"));
+      //setMessageF(t("forbidden_contact_administrator"));
 
 
       setShowModalF(true);
-    } else if (user_level === "VIP3" && orderCount === 1 && balance < 120) {
-      // setMessageF("Top up $120 to start Grabbing");
-      setMessageF(t("Top_up_$120"));
+    } else if (user_level === "VIP3" && orderCount === 1 && balance < 4850) {
+      setMessageF("Top up KSh 4850 to start Grabbing");
+      //setMessageF(t("Top_up_$120"));
 
       setShowModalF(true);
-    } else if (user_level === "VIP3" && orderCount === 2 && balance < 200) {
-      // setMessageF("Top up $200 to start Grabbing");
-      setMessageF(t("Top_up_$200"));
+    } else if (user_level === "VIP3" && orderCount === 2 && balance < 7530) {
+       setMessageF("Top up KSh 7530 to start Grabbing");
+      //setMessageF(t("Top_up_$200"));
 
       setShowModalF(true);
-    } else if (user_level === "VIP3" && orderCount === 3 && balance < 500) {
-      // setMessageF("Top up $500 to start Grabbing");
-      setMessageF(t("Top_up_$500"));
+    } else if (user_level === "VIP3" && orderCount === 3 && balance < 12500) {
+      setMessageF("Top up KSh 12500 to start Grabbing");
+      //setMessageF(t("Top_up_$500"));
 
       setShowModalF(true);
-    } else if (user_level === "VIP3" && orderCount === 4 && balance < 900) {
-      // setMessageF("Top up $900 to start Grabbing");
-      setMessageF(t("Top_up_$900"));
+    } else if (user_level === "VIP3" && orderCount === 4 && balance < 20200) {
+      setMessageF("Top up KSh 20200 to start Grabbing");
+      //setMessageF(t("Top_up_$900"));
 
       setShowModalF(true);
-    } else if (user_level === "VIP3" && orderCount === 5 && balance < 1200) {
-      // setMessageF("Top up $1200 to start Grabbing");
-      setMessageF(t("Top_up_$1200"));
+    } else if (user_level === "VIP3" && orderCount === 5 && balance < 12700) {
+       setMessageF("Top up KSh 12700 to start Grabbing");
+      //setMessageF(t("Top_up_$1200"));
 
       setShowModalF(true);
-    } else if (user_level === "VIP3" && orderCount === 6 && balance < 1500) {
-      // setMessageF("Top up $1500 to start Grabbing");
-      setMessageF(t("Top_up_$1500"));
+    } else if (user_level === "VIP3" && orderCount === 6 && balance < 35000) {
+      setMessageF("Top up KSH 35000 to start Grabbing");
+      //setMessageF(t("Top_up_$1500"));
       
       setShowModalF(true);
-    } else if (user_level === "VIP3" && orderCount === 7 && balance < 2200) {
-      // setMessageF("Top up $2200 to start Grabbing");
-      setMessageF(t("Top_up_$2200"));
+    } else if (user_level === "VIP3" && orderCount === 7 && balance < 37800) {
+      setMessageF("Top up KSh 37800 to start Grabbing");
+      //setMessageF(t("Top_up_$2200"));
       setShowModalF(true);
-    } else if (user_level === "VIP3" && orderCount === 8 && balance < 3000) {
-      // setMessageF("Top up $3000 to start Grabbing");
-      setMessageF(t("Top_up_$3000"));
+    } else if (user_level === "VIP3" && orderCount === 8 && balance < 55700) {
+       setMessageF("Top up KSH 55700 to start Grabbing");
+      //setMessageF(t("Top_up_$3000"));
       setShowModalF(true);
-    } else if (user_level === "VIP3" && orderCount === 9 && balance < 3500) {
-      // setMessageF("Top up $3500 to start Grabbing");
-      setMessageF(t("Top_up_$3500"));
+    } else if (user_level === "VIP3" && orderCount === 9 && balance < 43200) {
+       setMessageF("Top up KSh 43200 to start Grabbing");
+      //setMessageF(t("Top_up_$3500"));
       setShowModalF(true);
-    } else if (user_level === "VIP3" && orderCount === 10 && balance < 3950) {
-      // setMessageF("Top up $3950 to start Grabbing");
-      setMessageF(t("Top_up_$3950"));
+    } else if (user_level === "VIP3" && orderCount === 10 && balance < 63600) {
+      setMessageF("Top up KSh 63600 to start Grabbing");
+      //setMessageF(t("Top_up_$3950"));
       setShowModalF(true);
-    } else if (user_level === "VIP3" && orderCount === 11 && balance < 4200) {
-      // setMessageF("Top up $4200 to start Grabbing");
-      setMessageF(t("Top_up_$4200"));
+    } else if (user_level === "VIP3" && orderCount === 11 && balance < 85000) {
+       setMessageF("Top up KSh 85000 to start Grabbing");
+      //setMessageF(t("Top_up_$4200"));
       setShowModalF(true);
     } else if (grabAttempts < 3) {
       if (
