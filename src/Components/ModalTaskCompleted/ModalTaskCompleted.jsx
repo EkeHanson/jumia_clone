@@ -10,14 +10,17 @@ const ModalTaskCompleted = ({ show, handleClose }) => {
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>{t('task_completed_2')}</Modal.Title>
+        <Modal.Title>Task Completed</Modal.Title>
+        {/* <Modal.Title>{t('task_completed_2')}</Modal.Title> */}
       </Modal.Header>
       <Modal.Body>
-        <p>{t('task_completed')}.</p>
+        <p>Task Completed.</p>
+        {/* <p>{t('task_completed')}.</p> */}
       </Modal.Body>
       <Modal.Footer>
         <Button className='alart-btn border-0' onClick={handleClose}>
-      {t('ok')}
+      OK
+      {/* {t('ok')} */}
         </Button>
       </Modal.Footer>
     </Modal>
