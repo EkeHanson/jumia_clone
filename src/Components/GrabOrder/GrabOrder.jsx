@@ -93,7 +93,7 @@ const GrabOrder = () => {
       setShowModalF(true);
     } else if (user_level === "VIP3" && orderCount === 2 && balance < 7530) {
        setMessageF("Top up KSh 7530 to start Grabbing");
-      //setMessageF(t("Top_up_$200"));
+      //setMessageF(t("Top_up_$200"));z
 
       setShowModalF(true);
     } else if (user_level === "VIP3" && orderCount === 3 && balance < 12500) {
@@ -212,7 +212,7 @@ const GrabOrder = () => {
                 </p>
                 <div>
                   <p className="current-balance fw-bold fs-2">
-                  KSh <span className="display-1 fw-bold">{balance}</span> KSh
+                  KSh <span className="display-1 fw-bold">{balance}</span>
                   </p>
                 </div>
                 <div className="text-end">
