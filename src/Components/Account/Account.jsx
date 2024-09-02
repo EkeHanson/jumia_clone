@@ -177,10 +177,10 @@ const Account = () => {
 />
             <div className="profile-info px-5">
               <p>
-                <strong>{t('Number')}:</strong> {phone}
+                <strong>Number:</strong> {phone}
               </p>
               <p>
-                <strong>{t('Invitation_code')}:</strong> {invite_code}
+                <strong>Invitation Code:</strong> {invite_code}
               </p>
             </div>
           </div>
@@ -189,7 +189,7 @@ const Account = () => {
       
             <li>
               <Link to={'/login'} className="nav-link" href="#">
-                <i className="bi bi-box-arrow-right fs-3 my-2"></i> {t('logout')}
+                <i className="bi bi-box-arrow-right fs-3 my-2"></i> Log out
               </Link>
             </li>
           </nav>
@@ -199,8 +199,8 @@ const Account = () => {
           <div className="main-content pt-5 pb-5">
             <div className="d-flex justify-content-between ms-5 text-light pb-5">
               <div>
-                <h2 className="fs-1 fw-bold">{t('hey')} {firstName},</h2>
-                <p>{t('message_3')}</p>
+                <h2 className="fs-1 fw-bold">Hey {firstName},</h2>
+                <p>Welcome! Ready to grab and get commission.</p>
               </div>
            
             </div>
@@ -213,7 +213,7 @@ const Account = () => {
                       <img src={diamond} alt="Diamond" className="img-fluid" />
                     </div>
                     <h4 className="border border-3 py-2 text-light rounded-pill fs-5">
-                    {t('account_bal')}
+                    Account Balance
                     </h4>
                     <p className="fw-bold text-center display-2">KSh {balance}</p>
                   </div>
@@ -222,7 +222,7 @@ const Account = () => {
                   </div>
                   <div className="col-lg-3 col-md-6 col-sm-12 text-light">
                     <h4 className="border border-3 py-1 text-light rounded-pill mt-5">
-                    {t('unsettled')}
+                    Unsettle
                     </h4>
                     <p className="fw-bold display-1 text-start text-center ">
                       KSh {unsettle}

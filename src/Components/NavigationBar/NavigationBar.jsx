@@ -123,7 +123,7 @@ const NavigationBar = () => {
           <Nav.Item className={`nav-item ${isActive('/homepage')}`}>
             <Link to="/homepage" className="d-flex flex-column align-items-center text-decoration-none text-dark">
               <HouseDoor className="nav-icon" />
-              <span className="nav-text">{t('home')}</span>
+              <span className="nav-text">Home</span>
             </Link>
           </Nav.Item>
           {/* <Nav.Item className={`nav-item ${isActive('/record')}`}>
@@ -135,13 +135,13 @@ const NavigationBar = () => {
           <Nav.Item className={`nav-item grab-order ${isActive('/grab-order')}`}>
             <Link to="/grab-order" className="d-flex flex-column align-items-center text-decoration-none">
               <i className="bi bi-bag-plus nav-icon grab-order-icon"></i>
-              <span className="nav-text">{t('grab')}</span>
+              <span className="nav-text">Grab Order</span>
             </Link>
           </Nav.Item>
           <Nav.Item className={`nav-item ${isActive('/account')}`}>
             <Link to="/account" className="d-flex flex-column text-dark align-items-center text-decoration-none">
               <Person className="nav-icon" />
-              <span className="nav-text">{t('profile')}</span>
+              <span className="nav-text">Profile</span>
             </Link>
           </Nav.Item>
         </Nav>
