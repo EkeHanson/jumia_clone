@@ -126,7 +126,9 @@ const Account = () => {
   };
 
   const handleAmountClick = (amount) => {
-    setAmount(amount);
+    if (amount > 0) {
+      setAmount(amount);
+    }
   };
 
   useEffect(() => {
@@ -184,31 +186,7 @@ const Account = () => {
           </div>
           <hr />
           <nav className="nav flex-column account-section fw-bold py-5">
-            {/* <li>
-              <Link to={''} className="nav-link" href="#">
-                <i className="bi bi-person-workspace fs-3"></i> {t('account_info')}
-              </Link>
-            </li>
-            <li>
-              <Link to={''} className="nav-link" href="#">
-                <i className="bi bi-file-earmark-text fs-3"></i> {t('order_record')}
-              </Link>
-            </li>
-            <li>
-              <Link to={''} className="nav-link" href="#">
-                <i className="bi bi-cash-stack fs-3"></i> Recharge record
-              </Link>
-            </li>
-            <li>
-              <Link to={''} className="nav-link" href="#">
-                <i className="bi bi-wallet2 fs-3"></i> Withdrawal record
-              </Link>
-            </li>
-            <li>
-              <Link to={''} className="nav-link" href="#">
-                <i className="bi bi-envelope-paper-fill fs-3"></i> Invite friend
-              </Link>
-            </li> */}
+      
             <li>
               <Link to={'/login'} className="nav-link" href="#">
                 <i className="bi bi-box-arrow-right fs-3 my-2"></i> {t('logout')}
@@ -217,27 +195,6 @@ const Account = () => {
           </nav>
         </div>
 
-        {/* Sidebar Toggle Button */}
-        {/* <button
-          className="sidebar-toggle d-md-none bg-transparent border-dark border-3"
-          onClick={toggleSidebar}
-        >
-          ☰
-        </button> */}
-        {/* <button
-          className={`sidebar-toggle d-md-none fs-1 ${
-            sidebarOpen ? "cancel" : ""
-          } ${
-            isScrolled
-              ? "scrolled border border-dark border-1 rounded-3 text-dark"
-              : "bg-transparent"
-          }`}
-          onClick={toggleSidebar}
-        >
-          {sidebarOpen ? "×" : "☰"}
-        </button> */}
-
-        {/* Main Content */}
         <div className="col-lg-9 px-0">
           <div className="main-content pt-5 pb-5">
             <div className="d-flex justify-content-between ms-5 text-light pb-5">
@@ -245,11 +202,7 @@ const Account = () => {
                 <h2 className="fs-1 fw-bold">{t('hey')} {firstName},</h2>
                 <p>{t('message_3')}</p>
               </div>
-              {/* <div className="w-50 text-end me-5">
-                <button className="btn btn-outline-light">
-                  <i className="bi bi-camera"></i> Change cover
-                </button>
-              </div> */}
+           
             </div>
 
             <div className=" text-center  rounded-5 w-75 balance-card mx-auto">
@@ -262,7 +215,7 @@ const Account = () => {
                     <h4 className="border border-3 py-2 text-light rounded-pill fs-5">
                     {t('account_bal')}
                     </h4>
-                    <p className="fw-bold text-center display-2">${balance}</p>
+                    <p className="fw-bold text-center display-2">KSh {balance}</p>
                   </div>
                   <div className="col-lg-1 mt-5 d-none d-lg-block">
                     <div className="vr h-100"></div>
@@ -272,7 +225,7 @@ const Account = () => {
                     {t('unsettled')}
                     </h4>
                     <p className="fw-bold display-1 text-start text-center ">
-                      ${unsettle}
+                      KSh {unsettle}
                     </p>
                   </div>
                   <div className="col-lg-4 col-md-6 col-sm-12 text-light">
@@ -348,56 +301,57 @@ const Account = () => {
                       <div className="col-lg-12 col-md-6 col-sm-12 d-flex recharge-btn">
                         <button
                           className="btn border w-100 fw-bold mx-2"
-                          onClick={() => handleAmountClick(20)}
+                          onClick={() => handleAmountClick(250)}
                           // disabled={!(level === "VIP1" || balance == 40)}
-                          disabled={!(level === "VIP1" && orderCount == 0 || (level === "VIP2" && orderCount == 1))  }
+                          disabled={!(level === "VIP1" && orderCount == 0)  }
+                          // disabled={!(level === "VIP1" && orderCount == 0 || (level === "VIP2" && orderCount == 1))  }
                         >
-                          $20 
+                          KSh 250 
                         </button>
                         <button
                           // disabled={level !== "VIP2"}
                           disabled={!(level === "VIP2" && orderCount == 0) }
                           className="btn border fw-bold w-100 mx-2"
-                          onClick={() => handleAmountClick(40)}
+                          onClick={() => handleAmountClick(1200)}
                         >
-                          $40
+                          KSh 1200
                         </button>
                       </div>
                     )}
                   
                         <div className="col-lg-12 col-md-6 col-sm-12 d-flex recharge-btn">
                           <button
-                            disabled={!(level === "VIP3" )}
+                            disabled={!(level === "VIP2"  && orderCount == 1)}
                             className="btn border fw-bold w-100 mx-2"
-                            onClick={() => handleAmountClick(70)}
+                            onClick={() => handleAmountClick(500)}
                           >
-                            $70
+                            KSh 500
                           </button>
                           <button
-                            // disabled={!(level === "VIP3" && orderCount < 2)}
                             disabled={!(level === "VIP3" )}
                             className="btn border fw-bold w-100 mx-2"
-                            onClick={() => handleAmountClick(120)}
+                            onClick={() => handleAmountClick(2000)}
                           >
-                            $120
+                            KSh 2000
                           </button>
+                        
                         </div>
                         <div className="col-lg-12 col-md-6 col-sm-12 d-flex recharge-btn">
                           <button
                             //  disabled={!(level === "VIP3" && orderCount < 3)}
                             disabled={!(level === "VIP3" )}
                             className="btn border fw-bold w-100 mx-2"
-                            onClick={() => handleAmountClick(200)}
+                            onClick={() => handleAmountClick(7530)}
                           >
-                            $200
+                            KSh 7530
                           </button>
                           <button
                             // disabled={!(level === "VIP3"  && orderCount < 4)}
                             disabled={!(level === "VIP3" )}
                             className="btn border fw-bold w-100 mx-2"
-                            onClick={() => handleAmountClick(500)}
+                            onClick={() => handleAmountClick(12500)}
                           >
-                            $500
+                            KSh 12500
                           </button>
                         </div>
 
@@ -407,17 +361,17 @@ const Account = () => {
                           <button
                             // disabled={!(level === "VIP3"  && orderCount < 5)}
                             className="btn border fw-bold w-100 mx-2"
-                            onClick={() => handleAmountClick(900)}
+                            onClick={() => handleAmountClick(20200)}
                           >
-                            $900
+                            KSh 20200
                           </button>
                           
                           <button
                             // disabled={!(level === "VIP3"  && orderCount < 6)}
                             className="btn border fw-bold w-100 mx-2"
-                            onClick={() => handleAmountClick(1200)}
+                            onClick={() => handleAmountClick(12700)}
                           >
-                            $1200
+                            KSh 12700
                           </button>
                         
                         </div>
@@ -425,16 +379,16 @@ const Account = () => {
                           <button
                             // disabled={!(level === "VIP3"  && orderCount < 7)}
                             className="btn border fw-bold w-100 mx-2"
-                            onClick={() => handleAmountClick(1500)}
+                            onClick={() => handleAmountClick(35000)}
                           >
-                            $1500
+                            KSh 35000
                           </button>
                           <button
                             // disabled={!(level === "VIP3"  && orderCount < 8)}
                             className="btn border fw-bold w-100 mx-2"
-                            onClick={() => handleAmountClick(2200)}
+                            onClick={() => handleAmountClick(37800)}
                           >
-                            $2200
+                            KSh 37800
                           </button>
                         </div>
                         
@@ -442,16 +396,16 @@ const Account = () => {
                               <button
                                 // disabled={!(level === "VIP3"  && orderCount < 9)}
                                 className="btn border fw-bold w-100 mx-2"
-                                onClick={() => handleAmountClick(3000)}
+                                onClick={() => handleAmountClick(55700)}
                               >
-                                $3000
+                                KSh 55700
                               </button>
                               <button
                               //  disabled={!(level === "VIP3"  && orderCount < 10)}
                                 className="btn border fw-bold w-100 mx-2"
-                                onClick={() => handleAmountClick(3500)}
+                                onClick={() => handleAmountClick(43200)}
                               >
-                                $3500
+                                KSh 43200
                               </button>
                             </div>
 
@@ -459,21 +413,31 @@ const Account = () => {
                               <button
                                 // disabled={!(level === "VIP3"  && orderCount < 11)}
                                 className="btn border fw-bold w-100 mx-2"
-                                onClick={() => handleAmountClick(3950)}
+                                onClick={() => handleAmountClick(63600)}
                               >
-                                $3950
+                                KSh 63600
                               </button>
                               <button
                                 // disabled={!(level === "VIP3"  && orderCount < 12)}
                                 className="btn border fw-bold w-100 mx-2"
-                                onClick={() => handleAmountClick(4200)}
+                                onClick={() => handleAmountClick(85000)}
                               >
-                                $4200
+                                KSh 85000
                               </button>
                             </div>
+                          
                           </>
                         )}
-
+                          <div className="col-lg-12 col-md-12 col-sm-12 my-3">
+                              <input
+                                type="number"
+                                className="form-control"
+                                placeholder={t('enter_amount')}
+                                value={amount}
+                                onChange={(e) => setAmount(Math.max(0, parseFloat(e.target.value)))}
+                                min="0"
+                              />
+                            </div>
 
 
                         <div className="mt-5">

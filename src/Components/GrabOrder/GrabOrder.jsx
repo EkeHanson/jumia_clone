@@ -63,7 +63,7 @@ const GrabOrder = () => {
     //   setShowModalF(true);
 
     if (
-      (user_level === "VIP1" && orderCount === 0 && balance < 30) ||
+      (user_level === "VIP1" && orderCount === 0 && balance < 300) ||
       (user_level === "VIP2" && orderCount === 0 && balance <= 39)
     ) {
       // setMessageF("Forbidden, contact Administrator");
@@ -208,7 +208,7 @@ const GrabOrder = () => {
                 </p>
                 <div>
                   <p className="current-balance fw-bold fs-2">
-                    $ <span className="display-1 fw-bold">{balance}</span> USD
+                  KSh <span className="display-1 fw-bold">{balance}</span> KSh
                   </p>
                 </div>
                 <div className="text-end">
@@ -227,7 +227,7 @@ const GrabOrder = () => {
                 <p>{t("yesterday_commision")}</p>
               </div>
               <div className="px-4">
-                <p className="commission fw-bold fs-1">${commission1}</p>
+                <p className="commission fw-bold fs-1">KSh {commission1}</p>
               </div>
             </div>
           </div>
@@ -258,7 +258,7 @@ const GrabOrder = () => {
                   <p>{t("today_commision")}</p>
                 </div>
                 <div className="px-4">
-                  <p className="commission fw-bold fs-1">${commission2}</p>
+                  <p className="commission fw-bold fs-1">KSh {commission2}</p>
                 </div>
               </div>
             </div>

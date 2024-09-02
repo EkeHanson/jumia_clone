@@ -38,95 +38,98 @@ const Modal1 = ({ show, handleClose, user_level, amount, balance, orderCounts}) 
 
   function amount_order(){
     if(user_level === "VIP1"){
-      return  10
+      return  100
     }
     if(user_level === "VIP2" && orderCounts == 0){
-      return  40
-    }
-    if(user_level === "VIP2" && orderCounts == 1){
-      return  20
-    }
-    if(user_level === "VIP3" && orderCounts == 0){
-      return  70
-    }
-    if(user_level === "VIP3" && orderCounts == 1){
-      return  120
-    }
-    if(user_level === "VIP3" && orderCounts == 2){
-      return  200
-    }
-    if(user_level === "VIP3" && orderCounts == 3){
-      return  500
-    }
-    if(user_level === "VIP3" && orderCounts == 4){
-      return  900
-    }
-    if(user_level === "VIP3" && orderCounts == 5){
       return  1200
     }
+    if(user_level === "VIP2" && orderCounts == 1){
+      return  500
+    }
+    if(user_level === "VIP3" && orderCounts == 0){
+      return  2000
+    }
+    if(user_level === "VIP3" && orderCounts == 1){
+      return  4850
+    }
+    if(user_level === "VIP3" && orderCounts == 2){
+      return  7530
+    }
+    if(user_level === "VIP3" && orderCounts == 3){
+      return  12500
+    }
+    if(user_level === "VIP3" && orderCounts == 4){
+      return  20200
+    }
+    if(user_level === "VIP3" && orderCounts == 5){
+      return  12700
+    }
     if(user_level === "VIP3" && orderCounts == 6){
-      return  1500
+      return  35000
     }
     if(user_level === "VIP3" && orderCounts == 7){
-      return  2200
+      return  37800
     }
     if(user_level === "VIP3" && orderCounts == 8){
-      return  3000
+      return  55700
     }
     if(user_level === "VIP3" && orderCounts == 9){
-      return  3500
+      return  43200
     }
     if(user_level === "VIP3" && orderCounts == 10){
-      return  3950
+      return  63600
     }
     if(user_level === "VIP3" && orderCounts == 11){
-      return  4200
+      return  85000
     }
     
   }
 
   function commission_order(){
+    if(user_level === "VIP1" && orderCounts <= 3){
+      return  20
+    }
     if(user_level === "VIP2" && orderCounts == 0){
-      return  12
+      return  360
     }
     if(user_level === "VIP2" && orderCounts == 1){
-      return  6
+      return  150
     }
     if(user_level === "VIP3" && orderCounts == 0){
-      return  49
+      return  1000
     }
     if(user_level === "VIP3" && orderCounts == 1){
-      return  84
+      return  2425
     }
     if(user_level === "VIP3" && orderCounts == 2){
-      return  140
+      return  3765
     }
     if(user_level === "VIP3" && orderCounts == 3){
-      return  350
+      return  6250
     }
     if(user_level === "VIP3" && orderCounts == 4){
-      return  648
+      return  10100
     }
     if(user_level === "VIP3" && orderCounts == 5){
-      return  840
+      return  6350
     }
     if(user_level === "VIP3" && orderCounts == 6){
-      return  1050
+      return  17500
     }
     if(user_level === "VIP3" && orderCounts == 7){
-      return  1540
+      return  18900
     }
     if(user_level === "VIP3" && orderCounts == 8){
-      return  2100
+      return  27850
     }
     if(user_level === "VIP3" && orderCounts == 9){
-      return  2450
+      return  21600
     }
     if(user_level === "VIP3" && orderCounts == 10){
-      return  2765
+      return  31800
     }
     if(user_level === "VIP3" && orderCounts == 11){
-      return  2940
+      return  42500
     }
   }
 
@@ -172,68 +175,68 @@ const Modal1 = ({ show, handleClose, user_level, amount, balance, orderCounts}) 
 
         // Set flash message based on user level and order count
         if (userLevel === "VIP1" && orderCount === 1) {
-          // setFlashMessage("Order completed. Grab two more");
-          setFlashMessage(t("Grab_two_more"));
+           setFlashMessage("Order completed. Grab two more");
+          // setFlashMessage(t("Grab_two_more"));
         } 
         if (userLevel === "VIP1" && orderCount === 2) {
-          // setFlashMessage("Order completed. Grab one more");
-          setFlashMessage(t("Grab_one_more"));
+          setFlashMessage("Order completed. Grab one more");
+          //setFlashMessage(t("Grab_one_more"));
         }
         if (userLevel === "VIP1" && orderCount === 3) {
-          // setFlashMessage("3 Orders completely Grabbed. Withdraw");
-          setFlashMessage(t("Grab_3_more"));
+          setFlashMessage("3 Orders completely Grabbed. Withdraw");
+          //setFlashMessage(t("Grab_3_more"));
         }
         if (userLevel === "VIP2" && orderCount === 1) {
-          // setFlashMessage("Top up $20 for the next Order");
-          setFlashMessage(t("next_Order"));
+          setFlashMessage("Top up KSh 500 for the next Order");
+          //setFlashMessage(t("next_Order"));
         }
         if (userLevel === "VIP2" && orderCount === 2) {
-          // setFlashMessage("Orders completed. Withdraw.");
-          setFlashMessage(t("completed_withdraw"));
+          setFlashMessage("Orders completed. Withdraw.");
+          //setFlashMessage(t("completed_withdraw"));
         }
         if (userLevel === "VIP3" && orderCount === 1) {
-          // setFlashMessage("Top up $120 for the next Order");
-          setFlashMessage(t("Top_up_$120_next"));
+           setFlashMessage("Top up KSh 4850 for the next Order");
+          //setFlashMessage(t("Top_up_$120_next"));
         }
         if (userLevel === "VIP3" && orderCount === 2) {
-          // setFlashMessage("Top up $200 for the next Order");
-          setFlashMessage(t("Top_up_$200_next"));
+         setFlashMessage("Top up KSh 7530 for the next Order");
+          //setFlashMessage(t("Top_up_$200_next"));
         }
         if (userLevel === "VIP3" && orderCount === 3) {
-          // setFlashMessage("Top up $500 for the next Order");
-          setFlashMessage(t("Top_up_$500_next"));
+           setFlashMessage("Top up KSh 12500 for the next Order");
+          //setFlashMessage(t("Top_up_$500_next"));
         }
         if (userLevel === "VIP3" && orderCount === 4) {
-          // setFlashMessage("Top up $900 for the next Order");
-          setFlashMessage(t("Top_up_$900_next"));
+           setFlashMessage("Top up KSh 20200 for the next Order");
+          //setFlashMessage(t("Top_up_$900_next"));
         }
         if (userLevel === "VIP3" && orderCount === 5) {
-          // setFlashMessage("Top up $1200 for the next Order");
-          setFlashMessage(t("Top_up_$1200_next"));
+           setFlashMessage("Top up KSh 12700 for the next Order");
+          //setFlashMessage(t("Top_up_$1200_next"));
         }
         if (userLevel === "VIP3" && orderCount === 6) {
-          // setFlashMessage("Top up $1500 for the next Order");
-          setFlashMessage(t("Top_up_$1500_next"));
+           setFlashMessage("Top up KSh 35000 for the next Order");
+          //setFlashMessage(t("Top_up_$1500_next"));
         }
         if (userLevel === "VIP3" && orderCount === 7) {
-          // setFlashMessage("Top up $2200 for the next Order");
-          setFlashMessage(t("Top_up_$2200_next"));
+           setFlashMessage("Top up KSh 37800  for the next Order");
+          //setFlashMessage(t("Top_up_$2200_next"));
         }
         if (userLevel === "VIP3" && orderCount === 8) {
-          // setFlashMessage("Top up $3000 for the next Order");
-          setFlashMessage(t("Top_up_$3000_next"));
+           setFlashMessage("Top up KSh 55700 for the next Order");
+          //setFlashMessage(t("Top_up_$3000_next"));
         }
         if (userLevel === "VIP3" && orderCount === 9) {
-          // setFlashMessage("Top up $3500 for the next Order");
-          setFlashMessage(t("Top_up_$3500_next"));
+           setFlashMessage("Top up KSh 43200 for the next Order");
+          //setFlashMessage(t("Top_up_$3500_next"));
         }
         if (userLevel === "VIP3" && orderCount === 10) {
-          // setFlashMessage("Top up $3950 for the next Order");
-          setFlashMessage(t("Top_up_$3950_next"));
+           setFlashMessage("Top up KSh 63600 for the next Order");
+          //setFlashMessage(t("Top_up_$3950_next"));
         }
         if (userLevel === "VIP3" && orderCount === 11) {
-          // setFlashMessage("Top up $4200 for the next Order");
-          setFlashMessage(t("Top_up_$4200_next"));
+           setFlashMessage("Top up KSh 85000 for the next Order");
+          //setFlashMessage(t("Top_up_$4200_next"));
         }
         if (userLevel === "VIP3" && orderCount === 12) {
           // setFlashMessage("Order Completed. Withdraw");
@@ -281,17 +284,17 @@ const Modal1 = ({ show, handleClose, user_level, amount, balance, orderCounts}) 
           <img src={currentImage} alt="Grab items" className="img-fluid" style={{width: '200px', height:'200px', objectFit:'cover'}} />
         </div>
         <div className="d-flex justify-content-between px-4">
-          <p className="pro-amount fw-bold fs-3">${}</p>
+          <p className="pro-amount fw-bold fs-3">KSh {}</p>
           <span className="fw-bold fs-3 mt-0">X2</span>
         </div>
         <div className="d-flex justify-content-between my-0 mx-2">
           <div>
             <p className="total-amount fw-bold">{t('total_order_amount')}</p>
-            <p className="total-amount text-start fs-4 fw-bold mt-0">${amount_order()}</p>
+            <p className="total-amount text-start fs-4 fw-bold mt-0">KSh {amount_order()}</p>
           </div>
           <div>
             <h4 className="fw-bold commi">{t('commision')}</h4>
-            <h4 className="fw-bold commi text-end">${commission_order()}</h4>
+            <h4 className="fw-bold commi text-end">KSh {commission_order()}</h4>
           </div>
         </div>
 

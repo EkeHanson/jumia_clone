@@ -1,10 +1,9 @@
-
-import PropTypes from 'prop-types'; // Import PropTypes
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
-import './Search.css';
+import './SearchL.css';
 
-const Search = ({ onSearch }) => {
+const SearchL = ({ onSearch }) => {
   const [query, setQuery] = useState('');
 
   const handleInputChange = (e) => {
@@ -13,18 +12,18 @@ const Search = ({ onSearch }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch(query);
+    onSearch(query); // Call the onSearch function with the query
   };
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid mb-4">
       <div className="container">
         <form onSubmit={handleSubmit}>
           <div className="form-group search-input-wrapper">
             <input 
               type="search" 
               className="form-control w-100" 
-              placeholder="Search..." 
+              placeholder="Please Search here..." 
               value={query} 
               onChange={handleInputChange} 
             />
@@ -38,8 +37,8 @@ const Search = ({ onSearch }) => {
   );
 };
 
-
-Search.propTypes = {
-    onSearch: PropTypes.func.isRequired, // Define prop types
+SearchL.propTypes = {
+  onSearch: PropTypes.func.isRequired,
 };
-export default Search;
+
+export default SearchL;

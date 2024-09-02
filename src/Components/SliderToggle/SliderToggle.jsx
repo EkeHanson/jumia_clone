@@ -56,12 +56,12 @@ const SliderToggle = ({ selectedMethod, setSelectedMethod }) => {
   const { t } = useTranslation();
   return (
     <div className="slider-toggle">
-      <button
+      {/* <button
         className={`toggle-button rounded-start-5 ${selectedMethod === "crypto" ? "active" : ""}`}
         onClick={() => setSelectedMethod("crypto")}
       >
         {t('wallet_payment')}
-      </button>
+      </button> */}
       <button
         className={`toggle-button rounded-end-5 ${selectedMethod === "bank" ? "active" : ""}`}
         onClick={() => setSelectedMethod("bank")}

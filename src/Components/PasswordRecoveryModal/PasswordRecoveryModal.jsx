@@ -1,36 +1,41 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { Modal, Alert } from "react-bootstrap";
-import './InvitationModal.css';
+import './PasswordRecoveryModal.css';
 
-const InvitationModal = ({ show, handleClose }) => {
+const PasswordRecoveryModal = ({ show, handleClose }) => {
+  
   const djangoHostname = import.meta.env.VITE_DJANGO_HOSTNAME;
   const [link, setLink] = useState("");
   const [loading, setLoading] = useState(false);
   const [flashMessage, setFlashMessage] = useState(""); // State for flash message
   const [flashVariant, setFlashVariant] = useState(""); // State for flash message variant (success, danger, etc.)
+  const [number, setNumber] = useState(""); // State for the number input
 
   // Function to send the POST request to the endpoint
   const generateLink = async () => {
     setLoading(true);
     setFlashMessage(""); // Clear any previous messages
     try {
-      const response = await fetch(`${djangoHostname}/api/accounts/invitation-codes/`, {
-        method: 'POST',
+
+      const response = await fetch(`${djangoHostname}/api/accounts/reset-password/`, {
+        method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({}), // Include any body data if needed for the POST request
+        body: JSON.stringify({
+          phone: number, // Include the number in the request body
+        }), 
       });
 
       if (response.ok) {
         const data = await response.json();
         setLink(data.code); // Adjust this according to the response format
         setFlashVariant("success");
-        setFlashMessage("Invitation link generated successfully!");
+        setFlashMessage("Token for password recovery generated successfully!");
       } else {
         setFlashVariant("danger");
-        setFlashMessage("Failed to generate invitation link.");
+        setFlashMessage("User with this number does not exist");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -51,7 +56,7 @@ const InvitationModal = ({ show, handleClose }) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title className="text-center">Invitation Link</Modal.Title>
+        <Modal.Title className="text-center">Password Rest Link</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="container-fluid">
@@ -63,7 +68,18 @@ const InvitationModal = ({ show, handleClose }) => {
             </Alert>
           )}
 
-          <p className="text-start pt-3">Generate Invitation Link</p>
+          <p className="text-start pt-3">Enter Your Phone Number with Country Code</p>
+
+          <div className="form-group mb-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter a number"
+              value={number}
+              onChange={(e) => setNumber(e.target.value)}
+              style={{ borderRadius: "25px" }}
+            />
+          </div>
 
           <div className="form-group" style={{ position: 'relative' }}>
             <input
@@ -109,9 +125,9 @@ const InvitationModal = ({ show, handleClose }) => {
   );
 };
 
-InvitationModal.propTypes = {
+PasswordRecoveryModal.propTypes = {
   show: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
 };
 
-export default InvitationModal;
+export default PasswordRecoveryModal;

@@ -203,9 +203,9 @@ const { t } = useTranslation()
                   <span>{t('remember')}</span>
                 </div>
                 <div className="text-end">
-                  <a className="text-end" href="#">
-                  {t('forgot')}
-                  </a>
+                  <Link className="text-end" to="/profile">
+                    {t('forgot')}
+                  </Link>
                 </div>
               </div>
               {error && <div className="text-danger">{error}</div>}

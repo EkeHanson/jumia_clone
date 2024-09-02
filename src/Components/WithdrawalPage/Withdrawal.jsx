@@ -7,8 +7,6 @@ import axios from "axios";
 import SliderToggle from "../SliderToggle/SliderToggle";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './Withdrawal.css';
-// import { useTranslation } from 'react-i18next';
-
 
 const Withdrawal = () => {
 
@@ -25,21 +23,18 @@ const Withdrawal = () => {
     }
   }, [navigate]);
 
-  // const { t } = useTranslation()
-  const [selectedMethod, setSelectedMethod] = useState("crypto");
+  const [selectedMethod, setSelectedMethod] = useState("bank");
   const [amount, setAmount] = useState("");
   const [orderNumber, setOrderNumber] = useState("");
   const [userlevel, setUserLevel] = useState("");
   const [availableBalance, setAvailableBalance] = useState(0);
-  const [cryptoWallet, setCryptoWallet] = useState("");
-  const [walletAddress, setWalletAddress] = useState("");
-  const [withdrawalPassword, setWithdrawalPassword] = useState("");
   const [bankName, setBankName] = useState("");
   const [bankAccountNumber, setBankAccountNumber] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [withdrawalPassword, setWithdrawalPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [flashMessage, setFlashMessage] = useState(""); // New flash message state
-  const [flashMessageType, setFlashMessageType] = useState(""); // New flash message type (success/error)
+  const [flashMessage, setFlashMessage] = useState(""); // Flash message state
+  const [flashMessageType, setFlashMessageType] = useState(""); // Flash message type (success/error)
 
   const djangoHostname = import.meta.env.VITE_DJANGO_HOSTNAME;
   const user = localStorage.getItem("user_id");
@@ -56,9 +51,7 @@ const Withdrawal = () => {
         setAvailableBalance(response.data.unsettle);
         setUserLevel(response.data.level);
         setAmount(response.data.unsettle); // Prepopulate the amount with availableBalance
-        setOrderNumber(response.data.grabbed_orders_count); // Prepopulate the amount with availableBalance
-
-        
+        setOrderNumber(response.data.grabbed_orders_count); // Prepopulate the orderNumber
       } catch (error) {
         console.error("Error fetching balance:", error);
       }
@@ -66,46 +59,21 @@ const Withdrawal = () => {
     fetchBalance();
   }, [djangoHostname]);
 
-
   const handleSubmit = async (e) => {
-
     e.preventDefault();
 
-      // Validation for available Balance in unsettle
-      if (
-        (userlevel == "VIP2" && availableBalance < 60)
-      ) {
-        // setFlashMessage("You cannot withdraw, Please top up $20 and grab the second order");
-        setFlashMessage(t("you_cannot_withdraw"));
-        return;
-      }
-      // Validation for available Balance in unsettle
-      if (
-        (userlevel == "VIP3" && orderNumber < 11)
-      ) {
-        // setFlashMessage("You cannot withdraw, Please top and grab order");
-        setFlashMessage(t("you_cannot_withdraw_2"));
-        return;
-      }
-
-     // Validation for crypto
-     if (
-      (amount > availableBalance)
+    // Validation for available Balance in unsettle
+    if (
+      (userlevel === "VIP2" && availableBalance < 60)
     ) {
-      // setFlashMessage("You cannot withdraw more than your unsettlement amount");
-      setFlashMessage(t("you_cannot_withdraw_3"));
+      setFlashMessage(t("you_cannot_withdraw"));
       return;
     }
- 
-
-    // Validation for crypto
+    // Validation for available Balance in unsettle
     if (
-      selectedMethod === "crypto" &&
-      (!amount || !cryptoWallet || !walletAddress || !withdrawalPassword)
+      (userlevel === "VIP3" && orderNumber < 11)
     ) {
-      // setFlashMessage("Please fill in all fields for crypto withdrawal");
-      setFlashMessage(t("please_fill_in_all"));
-      setFlashMessageType("error");
+      setFlashMessage(t("you_cannot_withdraw_2"));
       return;
     }
 
@@ -114,7 +82,6 @@ const Withdrawal = () => {
       selectedMethod === "bank" &&
       (!amount || !bankName || !bankAccountNumber || !phoneNumber || !withdrawalPassword)
     ) {
-      // setFlashMessage("Please fill in all fields for bank withdrawal");
       setFlashMessage(t("please_fill_in_all_bank"));
       setFlashMessageType("error");
       return;
@@ -129,20 +96,11 @@ const Withdrawal = () => {
       const requestData = {
         amount,
         withdrawalPassword,
-        ...(selectedMethod === "crypto" && {
-          bankName: cryptoWallet,
-          bankAccountNumber: walletAddress,
-          phoneNumber: user_phone,
-          selectedMethod,
-          user: user
-        }),
-        ...(selectedMethod === "bank" && {
-          bankName,
-          bankAccountNumber,
-          phoneNumber,
-          selectedMethod,
-          user
-        }),
+        bankName,
+        bankAccountNumber,
+        phoneNumber,
+        selectedMethod,
+        user
       };
 
       await axios.post(`${djangoHostname}/api/withdrws/withdraw/`, requestData, {
@@ -151,22 +109,17 @@ const Withdrawal = () => {
         },
       });
 
-      // setFlashMessage("Request sent successfully.  Awaiting approval");
       setFlashMessage(t("Awaiting_approval"));
       setFlashMessageType("success");
 
-      // handleUserUnsettle(user, availableBalance)
-      
     } catch (error) {
       console.error("Error processing withdrawal:", error);
-      // setFlashMessage("Error processing withdrawal");
       setFlashMessage(t("Error_processing_withdrawal"));
       setFlashMessageType("error");
     } finally {
-      setWithdrawalPassword("")
-      setWalletAddress("")
-      setAmount("")
-      setAvailableBalance("")
+      setWithdrawalPassword("");
+      setAmount("");
+      setAvailableBalance("");
       setLoading(false); // Stop loading
       // Clear flash message after 5 seconds
       setTimeout(() => {
@@ -174,7 +127,6 @@ const Withdrawal = () => {
       }, 5000);
     }
   };
-
 
   return (
     <div className="container">
@@ -185,13 +137,12 @@ const Withdrawal = () => {
           </Link>
         </div>
         <div className="col-auto mx-auto">
-          <h1>{t('withdrawal')}</h1>
+          <h1>Withdrawal</h1>
+          {/* <h1>{t('withdrawal')}</h1> */}
         </div>
       </div>
       <SliderToggle selectedMethod={selectedMethod} setSelectedMethod={setSelectedMethod} />
-      
-    
-      
+
       <form
         className="px-2"
         onSubmit={handleSubmit}
@@ -201,13 +152,13 @@ const Withdrawal = () => {
           <div className="col-lg-6 col-md-6 col-sm-12">
             <div className="my-3">
               <label className="fw-bold fs-4 my-2" htmlFor="withdrawal">
-              {t('enter_amount')}
+                Enter Amount
+                {/* {t('enter_amount')} */}
               </label>
               <input
                 className="form-control py-3 border rounded-3 border-3"
                 type="number"
                 value={amount}
-                // value={{availableBalance}}
                 onChange={(e) => setAmount(e.target.value)}
                 min="0"
                 step="0.01"
@@ -218,59 +169,25 @@ const Withdrawal = () => {
           <div className="col-lg-6 col-md-6 col-sm-12">
             <div className="my-3">
               <label className="fw-bold fs-4 my-2" htmlFor="availableBalance">
-              {t('avialable_withdrawal')}
+                Available Withdrawal
+                {/* {t('available_withdrawal')} */}
               </label>
               <input
                 type="number"
                 className="form-control py-3 bg-secondary rounded-3 border border-0 avia-bal"
                 value={availableBalance}
-                // readOnly
+                readOnly
               />
             </div>
           </div>
         </div>
-        {selectedMethod === "crypto" && (
-          <>
-            <div className="my-3">
-              <label className="fw-bold fs-4 my-2" htmlFor="cryptowallet">
-              {t('select_wallet')}
-              </label>
-              <select
-                name="cryptowallet"
-                id="cryptowallet"
-                className="form-select py-3 border border-3"
-                value={cryptoWallet}
-                onChange={(e) => setCryptoWallet(e.target.value)}
-                required
-              >
-                <option value="" selected>{t('Choose_wallet')}</option>
-                <option value="USDT">USDT</option>
-                <option value="BINANCE">BINANCE</option>
-                <option value="TON">TON</option>
-                <option value="BTC">BTC</option>
-                <option value="TRX">TRX</option>
-                <option value="TRC20">TRC20</option>
-              </select>
-            </div>
-            <div className="my-3">
-              <label className="fw-bold fs-4 my-2" htmlFor="walletaddress">
-              {t('recipient_wallet')}
-              </label>
-              <input
-                type="text"
-                className="form-control py-3 rounded-3 border border-3"
-                value={walletAddress}
-                onChange={(e) => setWalletAddress(e.target.value)}
-                required
-              />
-            </div>
-          </>
-        )}
+
         {selectedMethod === "bank" && (
           <>
             <div className="my-3">
               <label className="fw-bold fs-4 my-2" htmlFor="bankname">
-              {t('bank_name')}
+                Bank Name
+                {/* {t('bank_name')} */}
               </label>
               <input
                 type="text"
@@ -283,7 +200,8 @@ const Withdrawal = () => {
             </div>
             <div className="my-3">
               <label className="fw-bold fs-4 my-2" htmlFor="accountNumber">
-              {t('bank_account')}
+                Bank Account'
+                {/* {t('bank_account')} */}
               </label>
               <input
                 type="number"
@@ -295,7 +213,8 @@ const Withdrawal = () => {
             </div>
             <div className="my-3">
               <label className="fw-bold fs-4 my-2" htmlFor="phonenumber">
-              {t('Phone_number')}
+                Phone Number
+                {/* {t('Phone_number')} */}
               </label>
               <input
                 type="tel"
@@ -307,9 +226,11 @@ const Withdrawal = () => {
             </div>
           </>
         )}
-              <div className="my-3">
+
+        <div className="my-3">
           <label className="fw-bold fs-4 my-2" htmlFor="withdrawalPassword">
-          {t('enter_withdrawal_password')}
+            {/* {t('enter_withdrawal_password')} */}
+           Enter Withdrawal Password
           </label>
           <input
             type="password"
@@ -335,7 +256,8 @@ const Withdrawal = () => {
             {loading ? (
               <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             ) : (
-              t('withdraw')
+             "Withdraw"
+              // t('withdraw')
             )}
           </button>
         </div>
@@ -345,8 +267,7 @@ const Withdrawal = () => {
 };
 
 Withdrawal.propTypes = {
-  selectedMethod: PropTypes.string,
-  setSelectedMethod: PropTypes.func,
+  t: PropTypes.func.isRequired,
 };
 
 export default Withdrawal;

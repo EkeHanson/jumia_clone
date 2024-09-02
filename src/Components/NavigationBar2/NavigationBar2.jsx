@@ -71,6 +71,7 @@ import Container from "react-bootstrap/Container";
 // import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import logo1 from "../assets/wallmart-logo.png";
+//import logo1 from "../assets/jumia_logo.png";
 import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 import { Navigate } from "react-router-dom";
 
@@ -84,7 +85,7 @@ function NavigationBar2() {
         <div className="notification d-flex align-items-center ms-auto">
           <div className="">
             {/* <CountryCode /> */}
-            <LanguageSwitcher/>
+            {/* <LanguageSwitcher/> */}
           </div>
         </div>
       </Container>
