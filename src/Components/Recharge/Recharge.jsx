@@ -107,7 +107,7 @@ const Recharge = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        setFlashMessage(t("file_uploaded"));
+        setFlashMessage("File Uploaded");
         setFlashType("success");
 
         // Clear the input fields after successful upload
@@ -125,12 +125,12 @@ const Recharge = () => {
           window.location.reload();
         }, 3000); // 3 seconds delay
       } else {
-        setFlashMessage(t("failed_to_upload"));
+        setFlashMessage("Failed to upload"));
         setFlashType("error");
       }
     } catch (error) {
       console.error("Error uploading file:", error);
-      setFlashMessage(t("an_error_occurred"));
+      setFlashMessage("An error occurred");
       setFlashType("error");
     } finally {
       setLoading(false); // Set loading to false
@@ -141,7 +141,7 @@ const Recharge = () => {
     e.preventDefault();
 
     if (!senderName || !uploadProf) {
-      setFlashMessage(t("select_receipt"));
+      setFlashMessage("Select Receipt");
       setFlashType("error");
       return;
     }
