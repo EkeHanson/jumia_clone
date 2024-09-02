@@ -132,8 +132,8 @@ const Login = () => {
               <img src={img1} alt="icon" />
             </div>
             <div className="py-3">
-              <h2 className="text-start">{t('login')}</h2>
-              <p className="text-start">{t('description')}</p>
+              <h2 className="text-start">Login</h2>
+              <p className="text-start">Welcome back! Please login to your account</p>
             </div>
             <form onSubmit={handleSubmit}>
               <div className="input-group my-4">
@@ -222,7 +222,7 @@ const Login = () => {
               </div>
               <div>
                 <p>
-                  {t('question')}{" "}
+                Don't have an account?
                   <Link to={'/registration'} className="sub-login">
                     Sign Up
                   </Link>
