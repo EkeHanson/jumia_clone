@@ -208,7 +208,7 @@ const Recharge = () => {
               <div className="text-center">
                 <p>Amount</p>
                 {/* <p>{t("amount")}</p> */}
-                <p className="fw-bold">${formatAmount(amountFromQuery)}</p>
+                <p className="fw-bold">KSh{formatAmount(amountFromQuery)}</p>
               </div>
             </div>
 
