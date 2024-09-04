@@ -242,7 +242,7 @@ const Account = () => {
                         />
                         <h2 className="vip-count position-absolute top-50 start-0 end-0 translate-middle-y display-5 w-75 mx-4 my-2 fw-bold text-center">
                           {level}
-                          {/* {level}<br/> <span id="count">1</span> */}
+                        {/* {level}<br/> <span id="count">1</span> */}
                         </h2>
                       </div>
                     </div>
@@ -302,15 +302,12 @@ const Account = () => {
                         <button
                           className="btn border w-100 fw-bold mx-2"
                           onClick={() => handleAmountClick(250)}
-                          // disabled={!(level === "VIP1" || balance == 40)}
-                          disabled={!(level === "VIP1" && orderCount == 0)  }
-                          // disabled={!(level === "VIP1" && orderCount == 0 || (level === "VIP2" && orderCount == 1))  }
+                          disabled={!(level === "VIP1" && orderCount == 0) }
                         >
                           KSh 250 
                         </button>
                         <button
-                          // disabled={level !== "VIP2"}
-                          disabled={!(level === "VIP2" && orderCount == 0) }
+                          disabled={!(level === "VIP2" && orderCount == 0)}
                           className="btn border fw-bold w-100 mx-2"
                           onClick={() => handleAmountClick(1200)}
                         >

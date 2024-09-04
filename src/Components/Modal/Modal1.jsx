@@ -240,7 +240,7 @@ const Modal1 = ({ show, handleClose, user_level, amount, balance, orderCounts}) 
         }
         if (userLevel === "VIP3" && orderCount === 12) {
           // setFlashMessage("Order Completed. Withdraw");
-          setFlashMessage(t("completed_withdraw"));
+          setFlashMessage("Completed Withdraw");
         }
        
 
@@ -263,11 +263,6 @@ const Modal1 = ({ show, handleClose, user_level, amount, balance, orderCounts}) 
   const isButtonDisabled = isLoading || isSuccess;
 
 
-  // alert(user_level)
-  // alert(orderCounts)
-      
-    // console.log(commission_order())
-    // alert(commission_order())
 
   return (
     <div className="modal-overlay">
@@ -277,8 +272,8 @@ const Modal1 = ({ show, handleClose, user_level, amount, balance, orderCounts}) 
         </button>
         {/* Display the current image */}
         <div className="time text-end d-flex justify-content-evenly">
-          <p>{t('date')}: {formattedDate}</p>
-          <p>{t('time')}: {formattedTime}</p>
+          <p>Date: {formattedDate}</p>
+          <p>Time: {formattedTime}</p>
         </div>
         <div className="image-container">
           <img src={currentImage} alt="Grab items" className="img-fluid" style={{width: '200px', height:'200px', objectFit:'cover'}} />
@@ -289,11 +284,11 @@ const Modal1 = ({ show, handleClose, user_level, amount, balance, orderCounts}) 
         </div>
         <div className="d-flex justify-content-between my-0 mx-2">
           <div>
-            <p className="total-amount fw-bold">{t('total_order_amount')}</p>
+            <p className="total-amount fw-bold">Total Order Amount</p>
             <p className="total-amount text-start fs-4 fw-bold mt-0">KSh {amount_order()}</p>
           </div>
           <div>
-            <h4 className="fw-bold commi">{t('commision')}</h4>
+            <h4 className="fw-bold commi">Commision</h4>
             <h4 className="fw-bold commi text-end">KSh {commission_order()}</h4>
           </div>
         </div>
@@ -313,7 +308,7 @@ const Modal1 = ({ show, handleClose, user_level, amount, balance, orderCounts}) 
             className="btn rounded-pill border-0 fs-4"
             disabled={isLoading || (balance < 20 && orderCounts < 1) || isSuccess}
           >
-            {isLoading ? <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> : t('grab_2')}
+            {isLoading ? <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> : Grab}
           </button>
         </div>
       </div>
