@@ -283,7 +283,7 @@ const Account = () => {
               <div className="modal-dialog" role="document">
                 <div className="modal-content top-up">
                   <div className="modal-header">
-                    <h5 className="modal-title ms-auto">{t('top_up_account')}</h5>
+                    <h5 className="modal-title ms-auto">Top Up Account</h5>
                     <button
                       type="button"
                       className="close border-0 ms-auto fs-1 bg-transparent"
@@ -429,7 +429,7 @@ const Account = () => {
                               <input
                                 type="number"
                                 className="form-control"
-                                placeholder="Enter_amount"
+                                placeholder="Enter Aamount"
                                 value={amount}
                                 onChange={(e) => setAmount(Math.max(0, parseFloat(e.target.value)))}
                                 min="0"

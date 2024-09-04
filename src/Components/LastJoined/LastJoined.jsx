@@ -78,7 +78,7 @@ const LastJoined = () => {
                         {user.invitationCode_display.code}
                       </Link>
                     </td>
-                    <td>${user.balance}</td>
+                    <td>KSh {user.balance}</td>
                     <td className="d-flex justify-content-center">
                       <span className="timy text-light px-2 py-1 rounded">
                         {new Date(user.date_joined).toLocaleString()}

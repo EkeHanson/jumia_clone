@@ -308,7 +308,7 @@ const Modal1 = ({ show, handleClose, user_level, amount, balance, orderCounts}) 
             className="btn rounded-pill border-0 fs-4"
             disabled={isLoading || (balance < 20 && orderCounts < 1) || isSuccess}
           >
-            {isLoading ? <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> : Grab}
+            {isLoading ? <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> : "Grab"}
           </button>
         </div>
       </div>

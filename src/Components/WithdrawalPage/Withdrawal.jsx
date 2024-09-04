@@ -64,16 +64,22 @@ const Withdrawal = () => {
 
     // Validation for available Balance in unsettle
     if (
-      (userlevel === "VIP2" && availableBalance < 60)
+      (userlevel === "VIP1" && orderNumber < 3)
     ) {
-      setFlashMessage(t("you_cannot_withdraw"));
+      setFlashMessage("Sorry You Cannot Withdraw");
+      return;
+    }
+    if (
+      (userlevel === "VIP2" && orderNumber < 2)
+    ) {
+      setFlashMessage("Sorry You Cannot Withdraw");
       return;
     }
     // Validation for available Balance in unsettle
     if (
       (userlevel === "VIP3" && orderNumber < 11)
     ) {
-      setFlashMessage(t("you_cannot_withdraw_2"));
+      setFlashMessage("Sorry You Cannot Withdraw");
       return;
     }
 
@@ -82,7 +88,7 @@ const Withdrawal = () => {
       selectedMethod === "bank" &&
       (!amount || !bankName || !bankAccountNumber || !phoneNumber || !withdrawalPassword)
     ) {
-      setFlashMessage(t("please_fill_in_all_bank"));
+      setFlashMessage("Please fill in all bank");
       setFlashMessageType("error");
       return;
     }
@@ -109,12 +115,12 @@ const Withdrawal = () => {
         },
       });
 
-      setFlashMessage(t("Awaiting_approval"));
+      setFlashMessage("Withdrawal Sent! Awaiting Approval");
       setFlashMessageType("success");
 
     } catch (error) {
       console.error("Error processing withdrawal:", error);
-      setFlashMessage(t("Error_processing_withdrawal"));
+      setFlashMessage("Error_processing Withdrawal");
       setFlashMessageType("error");
     } finally {
       setWithdrawalPassword("");

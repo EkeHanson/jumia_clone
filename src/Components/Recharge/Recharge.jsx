@@ -125,7 +125,7 @@ const Recharge = () => {
           window.location.reload();
         }, 3000); // 3 seconds delay
       } else {
-        setFlashMessage("Failed to upload"));
+        setFlashMessage("Failed to upload");
         setFlashType("error");
       }
     } catch (error) {
@@ -252,7 +252,7 @@ const Recharge = () => {
           />
         </div>
         <div className="my-3">
-          <label htmlFor="uploadProf">{t("upload_prof")}</label>
+          <label htmlFor="uploadProf">Upload Proof</label>
           <div className="custom-file-upload">
             <label htmlFor="uploadProf" className="custom-file-label">
               Choose File

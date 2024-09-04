@@ -21,7 +21,7 @@ const SliderToggle = ({ selectedMethod, setSelectedMethod }) => {
         className={`toggle-button rounded-end-5 ${selectedMethod === "bank-payment" ? "active" : ""}`}
         onClick={() => setSelectedMethod("bank-payment")}
       >
-        {t('bank')}
+        Bank
       </button>
     </div>
   );

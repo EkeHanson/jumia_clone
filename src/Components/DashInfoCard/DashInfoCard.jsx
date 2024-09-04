@@ -103,7 +103,7 @@ const DashInfoCard = () => {
               <div>
                 <img src={balance} alt="Users Balance" className="img-fluid" />
               </div>
-              <h5 className="fw-bold mt-3">${dashboardData.userBalance}</h5>
+              <h5 className="fw-bold mt-3">KSh {dashboardData.userBalance}</h5>
               <span>Users Balance</span>
             </div>
           </div>
@@ -112,7 +112,7 @@ const DashInfoCard = () => {
               <div>
                 <img src={deposite} alt="Deposit" className="img-fluid" />
               </div>
-              <h5 className="fw-bold mt-3">${dashboardData.totalAmountTopUp}</h5>
+              <h5 className="fw-bold mt-3">KSh {dashboardData.totalAmountTopUp}</h5>
               <span>Deposit</span>
             </div>
           </div>
@@ -121,7 +121,7 @@ const DashInfoCard = () => {
               <div>
                 <img src={withd} alt="Withdrawals" className="img-fluid" />
               </div>
-              <h5 className="fw-bold mt-3">${dashboardData.totalAmountWithdraw}</h5>
+              <h5 className="fw-bold mt-3">KSh {dashboardData.totalAmountWithdraw}</h5>
               <span>Withdrawals</span>
             </div>
           </div>

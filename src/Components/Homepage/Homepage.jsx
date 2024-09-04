@@ -197,7 +197,7 @@ const Homepage = () => {
               <div className="modal-dialog" role="document">
                 <div className="modal-content top-up">
                   <div className="modal-header">
-                    <h5 className="modal-title ms-auto">Top Uup Account</h5>
+                    <h5 className="modal-title ms-auto">Top Up Account</h5>
                     {/* <h5 className="modal-title ms-auto">{t('top_up_account')}</h5> */}
                     <button
                       type="button"
@@ -348,7 +348,7 @@ const Homepage = () => {
                               <input
                                 type="number"
                                 className="form-control"
-                                placeholder={t('enter_amount')}
+                                placeholder="Enter Amount"
                                 value={amount}
                                 onChange={(e) => setAmount(Math.max(0, parseFloat(e.target.value)))}
                                 min="0"
@@ -366,7 +366,7 @@ const Homepage = () => {
                               type="button"
                               className="recharge text-light fw-bold rounded-pill text-decoration-none w-75 border-0 py-2"
                             >
-                              {t('recharge_now')}
+                              Recharge Now
                             </Link>
                           )}
                         </div>

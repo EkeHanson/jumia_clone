@@ -14,7 +14,7 @@ const ModalTaskCompleted = ({ show, handleClose }) => {
         {/* <Modal.Title>{t('task_completed_2')}</Modal.Title> */}
       </Modal.Header>
       <Modal.Body>
-        <p>Task Completed.</p>
+        <p>Task Completed Withdraw.</p>
         {/* <p>{t('task_completed')}.</p> */}
       </Modal.Body>
       <Modal.Footer>

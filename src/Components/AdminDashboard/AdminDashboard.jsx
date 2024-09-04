@@ -20,7 +20,6 @@ import RechargeDash from "../RechargeDash/RechargeDash";
 import WithdrawDash from "../WithdrawDash/WithdrawDash";
 import InvitationModal from "../InvitationModal/InvitationModal";
 import BankDetailsModal from "../BankDetailsModal/BankDetailsModal";
-import WalletDetailsModal from "../WalletDetailsModal/WalletDetailsModal";
 import { Link } from "react-router-dom";
 
 const AdminDashboard = () => {
@@ -277,10 +276,7 @@ const AdminDashboard = () => {
         show={showBankDetailsModal}
         handleClose={() => setShowBankDetailsModal(false)}
       />
-      <WalletDetailsModal
-        show={showWalletDetailsModal}
-        handleClose={() => setShowWalletDetailsModal(false)}
-      />
+      
     </div>
   );
 };

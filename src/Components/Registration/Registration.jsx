@@ -84,13 +84,13 @@ const Registration = () => {
     // Perform validation
     if (formData.password !== formData.confirmPassword) {
       // setError("Passwords do not match");
-      setError(t('Passwords_do_not_match'));
+      setError("Passwords does not match");
       return;
     }
 
     if (!formData.termsAccepted) {
       // setError("You must accept the terms and conditions");
-      setError(t('terms_and_conditions'));
+      setError("Terms and Conditions");
       return;
     }
 
@@ -144,7 +144,7 @@ const Registration = () => {
             <div>
               <img src={img1} alt="icon" />
             </div>
-            <h2>{t('create_account')}</h2>
+            <h2>Create Account</h2>
             <form onSubmit={handleSubmit}>
               <div className="input-group my-4">
                 <input
@@ -152,7 +152,7 @@ const Registration = () => {
                   name="firstName"
                   id="firstName"
                   className="form-control rounded-5 py-3 border border-3"
-                  placeholder={t('first_name')}
+                  placeholder="First Name"
                   value={formData.firstName}
                   onChange={handleChange}
                 />
@@ -163,7 +163,7 @@ const Registration = () => {
                   name="lastName"
                   id="lastName"
                   className="form-control rounded-5 py-3 border border-3"
-                  placeholder={t('last_name')}
+                  placeholder="Last Name"
                   value={formData.lastName}
                   onChange={handleChange}
                 />
@@ -190,7 +190,7 @@ const Registration = () => {
                   type="tel"
                   name="phone"
                   className="form-control rounded-end-5 border border-3"
-                  placeholder={t('number')}
+                  placeholder="Number"
                   value={formData.phone}
                   onChange={handleChange}
                 />
@@ -200,7 +200,7 @@ const Registration = () => {
                   type={showPassword ? "text" : "password"}
                   name="password"
                   className="form-control py-3 rounded-5 border border-3"
-                  placeholder={t('password')}
+                  placeholder="Password"
                   value={formData.password}
                   onChange={handleChange}
                 />
@@ -221,7 +221,7 @@ const Registration = () => {
                   type={showConfirmPassword ? "text" : "password"}
                   name="confirmPassword"
                   className="form-control py-3 rounded-5 border border-3"
-                  placeholder={t('confirm_password')}
+                  placeholder="Confirm Password"
                   value={formData.confirmPassword}
                   onChange={handleChange}
                 />
@@ -242,7 +242,7 @@ const Registration = () => {
                   type={showWithdrawalPassword ? "text" : "password"}
                   name="withdrawalPassword"
                   className="form-control py-3 rounded-5 border border-3"
-                  placeholder={t('withdrawal_password')}
+                  placeholder="Withdrawal Password"
                   value={formData.withdrawalPassword}
                   onChange={handleChange}
                 />
@@ -265,7 +265,7 @@ const Registration = () => {
                   type="text"
                   name="invitationCode"
                   className="form-control py-3 rounded-5 my-4 border border-3"
-                  placeholder={t('invitation_code')}
+                  placeholder="Invitation Code"
                   value={formData.invitationCode}
                   onChange={handleChange}
                 />
@@ -279,9 +279,9 @@ const Registration = () => {
                   onChange={handleChange}
                 />{" "}
                 <span>
-                {t('message')}{" "}
+                By logging in you agree to our &nbsp;
                   <a href="#" className="terms">
-                  {t('terms')}
+                  Terms of use & Privacy Policy
                   </a>
                 </span>
               </div>
@@ -298,15 +298,15 @@ const Registration = () => {
                       <span className="visually-hidden">Loading...</span>
                     </div>
                   ) : (
-                    t('register')
+                   "Register"
                   )}
                 </button>
               </div>
               <div>
                 <p>
-                {t('question_two')}{" "}
+                Have an Account already?&nbsp;&nbsp;
                   <Link to={"/login"} className="sub-login">
-                  {t('login')}
+                  Login
                   </Link>
                 </p>
               </div>
