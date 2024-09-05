@@ -33,8 +33,7 @@ const Recharge = () => {
   const [bankDetails, setBankDetails] = useState({
     bankName: "",
     account: "",
-    recipient: "",
-    ruth: "",
+    recipient: ""
   });
 
   // Flash message state
@@ -116,8 +115,7 @@ const Recharge = () => {
         setBankDetails({
           bankName: "",
           account: "",
-          recipient: "",
-          ruth: "",
+          recipient: ""
         });
 
         // Delay the reload for 3 seconds
@@ -163,6 +161,22 @@ const Recharge = () => {
     handleFileUpload(formData);
   };
 
+  const copyToClipboard = (text) => {
+    if (text) {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          setFlashMessage("Bank account number copied to successfully!");
+          setFlashType("success");
+        })
+        .catch((error) => {
+          console.error("Copy failed", error);
+          setFlashMessage("Failed to copy");
+          setFlashType("error");
+        });
+    }
+  };
+  
+
   return (
     <div className="container px-3">
       <div className="row my-5">
@@ -199,9 +213,31 @@ const Recharge = () => {
                 </div>
                 <div className="text-center">
                   <p>Bank Account</p>
-                  {/* <p>{t("bank_account")}</p> */}
                   <p className="fw-bold">{bankDetails.account}</p>
+
+                  <button
+                    className="btn copy py-2 w-75 text-light"
+                    onClick={() => copyToClipboard(bankDetails.account)}
+                    style={{
+                      borderRadius: "25px",
+                      backgroundColor: "#FFA500",
+                    }}
+                  >
+                    Copy Account Number
+                  </button>
+
+                  {/* Flash message displayed near the copy button */}
+                  {flashMessage && (
+                    <div
+                      className={`alert alert-${flashType} mt-2`}
+                      role="alert"
+                      style={{ width: "75%", margin: "0 auto" }} // Adjust width and position
+                    >
+                      {flashMessage}
+                    </div>
+                  )}
                 </div>
+
               </div>
             </div>
             <div className="col-lg-4 col-md-6 col-sm-12 align-self-center">
@@ -221,11 +257,11 @@ const Recharge = () => {
                   <hr className="horizontal border-3 text-white " />
                 </div>
 
-                <div className="text-center">
-                  <p>RUT</p>
+                {/* <div className="text-center">
+                  <p>RUT</p> */}
                   {/* <p>{t("rut")}</p> */}
-                  <p className="fw-bold">{bankDetails.ruth}</p>
-                </div>
+                  {/* <p className="fw-bold">{bankDetails.ruth}</p>
+                </div> */}
               </div>
             </div>
           </div>

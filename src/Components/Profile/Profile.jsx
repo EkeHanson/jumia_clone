@@ -136,21 +136,11 @@ const handleCloseEditUserBalanceModal = () => setShowEditUserBalanceModal(false)
             <div>
               <img src={img1} alt="icon" />
             </div>
-            <h2>Update User Account</h2>
+            <h2>{userDetails.firstName || ""} {userDetails.lastName || ""} Profile</h2>
             <form onSubmit={handleSubmit} className="profile-form">
               {/* New Readonly Fields */}
               <div className="row">
-                <div className="col-md-6 mb-4">
-                  <label>User Name</label>
-                  <input
-                    type="text"
-                    name="firstName"
-                    className="form-control rounded-end-5 border border-3"
-                    placeholder="First Name"
-                    value={`${userDetails.firstName || ""} ${userDetails.lastName || ""}`}
-                    readOnly
-                  />
-                </div>
+                
                 <div className="col-md-6 mb-4">
                 <label>User Balance </label>
                   <input
@@ -181,6 +171,17 @@ const handleCloseEditUserBalanceModal = () => setShowEditUserBalanceModal(false)
                     className="form-control rounded-end-5 border border-3"
                     placeholder="phone"
                     value={userDetails.phone || ""}
+                    readOnly
+                  />
+                </div>
+                <div className="col-md-6 mb-4">
+                  <label>User Withdrawal Password</label>
+                  <input
+                    type="text"
+                    name="firstName"
+                    className="form-control rounded-end-5 border border-3"
+                    placeholder="First Name"
+                    value={`${userDetails.withdrawalPassword}`}
                     readOnly
                   />
                 </div>

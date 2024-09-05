@@ -87,7 +87,7 @@ const Login = () => {
       });
 
       if (!response.ok) {
-        throw new Error(t('Network_response'));
+        throw new Error("Network_response");
       }
 
       const result = await response.json();
@@ -109,7 +109,7 @@ const Login = () => {
       }
 
     } catch (error) {
-      setError("Login Failed") + error.message);
+      setError("Login Failed" + error.message);
       console.error("Error:", error);
     } finally {
       setLoading(false);

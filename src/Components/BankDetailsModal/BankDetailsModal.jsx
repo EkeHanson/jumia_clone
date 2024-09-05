@@ -44,12 +44,12 @@ const BankDetailsModal = ({ show, handleClose }) => {
               bankName: data.bank_name,
               accountNumber: data.account_number,
               recipientName: data.recipient_name,
-              ruth: data.ruth 
+              // ruth: data.ruth 
             });
             setNewBankName(data.bank_name);
             setNewAccountNumber(data.account_number);
             setNewRecipientName(data.recipient_name);
-            setRuth(data.ruth);
+            // setRuth(data.ruth);
           } else {
             setFlashVariant("danger");
             setFlashMessage("Failed to fetch bank details.");
@@ -74,7 +74,7 @@ const BankDetailsModal = ({ show, handleClose }) => {
       bank_name: newBankName || bankDetails.bankName,
       account_number: newAccountNumber || bankDetails.accountNumber,
       recipient_name: newRecipientName || bankDetails.recipientName,
-      ruth: newRuth || bankDetails.ruth
+      // ruth: newRuth || bankDetails.ruth
     };
 
     try {
@@ -94,7 +94,7 @@ const BankDetailsModal = ({ show, handleClose }) => {
           bankName: data.bank_name,
           accountNumber: data.account_number,
           recipientName: data.recipient_name,
-          ruth: data.ruth,
+          // ruth: data.ruth,
         });
 
         setFlashVariant("success");
@@ -146,8 +146,8 @@ const BankDetailsModal = ({ show, handleClose }) => {
               <div className="w-75 me-lg-auto mx-auto">
                 <hr className="horizontal border-3 text-white" />
               </div>
-              <p>RUT Number</p>
-              <p>{bankDetails.ruth}</p>
+              {/* <p>RUT Number</p>
+              <p>{bankDetails.ruth}</p> */}
             </div>
           </div>
         </div>
@@ -201,7 +201,7 @@ const BankDetailsModal = ({ show, handleClose }) => {
             onChange={(e) => setNewAccountNumber(e.target.value)}
           />
         </div>
-        <div className="text-start my-4">
+        {/* <div className="text-start my-4">
           <label htmlFor="ruthName" className="text-start">
            RUT
           </label>
@@ -214,7 +214,7 @@ const BankDetailsModal = ({ show, handleClose }) => {
             value={newRuth}
             onChange={(e) => setRuth(e.target.value)}
           />
-        </div>
+        </div> */}
         <div className="my-4">
           <button
             className="btn change text-light"

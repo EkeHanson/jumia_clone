@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Homepage.css";
-import img2 from "../assets/slider.png";
-import img3 from "../assets/slider3.png";
+import img1 from "../assets/slider11.png";
+import img2 from "../assets/slider.jpg";
+import img3 from "../assets/slider3.jpg";
 import img4 from "../assets/recharge.png";
 import img5 from "../assets/withdrawal.png";
 import img6 from "../assets/invite.png";
@@ -117,7 +118,7 @@ const Homepage = () => {
             <img src={img2} className="d-block w-100" alt="..." />
           </div>
           <div className="carousel-item" data-bs-interval="2000">
-            <img src={img3} className="d-block w-100" alt="..." />
+            <img src={img1} className="d-block w-100" alt="..." />
           </div>
         </div>
         <button

@@ -138,3 +138,10 @@
 input[type="file"]{
   border: 2px solid gray !important;
 }
+
+.alert {
+  text-align: center;
+  padding: 8px;
+  font-size: 14px;
+  margin-top: 8px;
+}
