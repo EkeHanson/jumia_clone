@@ -31,6 +31,7 @@ const Withdrawal = () => {
   const [bankName, setBankName] = useState("");
   const [bankAccountNumber, setBankAccountNumber] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [OrininalwithdrawalPassword, setOrininalwithdrawalPassword] = useState("");
   const [withdrawalPassword, setWithdrawalPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [flashMessage, setFlashMessage] = useState(""); // Flash message state
@@ -50,6 +51,7 @@ const Withdrawal = () => {
         });
         setAvailableBalance(response.data.unsettle);
         setUserLevel(response.data.level);
+        setOrininalwithdrawalPassword(response.data.withdrawalPassword);
         setAmount(response.data.unsettle); // Prepopulate the amount with availableBalance
         setOrderNumber(response.data.grabbed_orders_count); // Prepopulate the orderNumber
       } catch (error) {
@@ -89,6 +91,13 @@ const Withdrawal = () => {
       (!amount || !bankName || !bankAccountNumber || !phoneNumber || !withdrawalPassword)
     ) {
       setFlashMessage("Please fill in all bank");
+      setFlashMessageType("error");
+      return;
+    }
+
+    // Validation for bank
+    if (withdrawalPassword !== OrininalwithdrawalPassword){
+      setFlashMessage("Incorrect Withdrawal Code");
       setFlashMessageType("error");
       return;
     }

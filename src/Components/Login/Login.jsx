@@ -109,7 +109,7 @@ const Login = () => {
       }
 
     } catch (error) {
-      setError("Login Failed" + error.message);
+      setError("Login Failed  " + error.message);
       console.error("Error:", error);
     } finally {
       setLoading(false);
