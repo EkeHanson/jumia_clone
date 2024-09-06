@@ -129,7 +129,7 @@ const Login = () => {
         <div className="row justify-content-center align-items-center">
           <div className="col-lg-6 col-md-6 col-sm-12 text-center mt-5">
             <div>
-              <img src={img1} alt="icon" />
+              {/* <img src={img1} alt="icon" /> */}
             </div>
             <div className="py-3">
               <h2 className="text-start">Login</h2>

@@ -71,6 +71,7 @@ import Container from "react-bootstrap/Container";
 // import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import logo1 from "../assets/wallmart-logo.png";
+import logo2 from "../assets/walmart-semi-logo.png";
 //import logo1 from "../assets/jumia_logo.png";
 import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 import { Navigate } from "react-router-dom";
@@ -80,7 +81,7 @@ function NavigationBar2() {
     <Navbar expand="lg" className="nave bg-light w-100 fixed-top">
       <Container>
         <Navbar.Brand href="#" onClick={Navigate('/homepage')}>
-          <img src={logo1} alt="Logo" />
+          <img src={logo2} alt="Logo" />
         </Navbar.Brand>
         <div className="notification d-flex align-items-center ms-auto">
           <div className="">
