@@ -236,3 +236,58 @@ box-sizing: border-box;
   } */
 
 }
+
+
+
+
+
+
+
+
+/* New NEw New*/
+
+.profile-pic, .action img {
+  max-width: 100%;
+  height: auto;
+}
+
+.modal-content {
+  width: 90%;
+  max-width: 600px;
+}
+
+/* Adjust layout for tablet and small laptops */
+@media (max-width: 1024px) {
+  .sidebar {
+    display: none; /* Hide sidebar on smaller devices */
+  }
+  .main-content {
+    padding-left: 15px; /* Reduce padding */
+  }
+  .profile-section img {
+    width: 80px; /* Scale down the profile picture */
+  }
+  .balance-card {
+    width: 100%; /* Make the balance card full width */
+  }
+}
+
+/* For large tablets and Surface Pro */
+@media (min-width: 768px) and (max-width: 1366px) {
+  .sidebar {
+    width: 25%; /* Adjust sidebar width */
+  }
+  .main-content {
+    width: 75%; /* Adjust content width */
+  }
+}
+
+/* Fine-tuning for very large screens */
+@media (min-width: 1440px) {
+  .balance-card {
+    width: 60%; /* Keep balance card smaller */
+  }
+  .modal-content {
+    max-width: 50%;
+  }
+}

@@ -204,10 +204,14 @@ const GrabOrder = () => {
           <div className="col-lg-6 col-md-12 col-sm-12 mt-5">
             <div className="card parent-card rounded-5 p-4 border-0">
               <div className="child-card py-3 px-5 border-0 mx-auto text-light rounded-5">
-                {/* <div className="icon pb-3">
-                  <img src={currentImage} alt="current-icon" /> 
-                </div> */}
-                <p className="text-light h4">
+              <div className="text-start">
+                  <img
+                    src={semilogo}
+                    alt="semi-logo"
+                    className="img-fluid w-25"
+                  />
+                </div>
+                <p className="text-light h4 text-end">
                   Current Balance <i className="bi bi-chevron-right"></i>
                 </p>
                 <div>
@@ -215,13 +219,13 @@ const GrabOrder = () => {
                   KSh <span className="display-1 fw-bold">{balance}</span>
                   </p>
                 </div>
-                <div className="text-end">
+                {/* <div className="text-end">
                   <img
                     src={semilogo}
                     alt="semi-logo"
                     className="img-fluid w-25"
                   />
-                </div>
+                </div> */}
               </div>
               <hr className="w-75 mx-auto my-5" />
               <div className="fw-bold fs-4 d-flex justify-content-between px-4">
@@ -301,3 +305,9 @@ const GrabOrder = () => {
 };
 
 export default GrabOrder;
+
+
+// iPad Air
+// iPad Pro
+// Surface Pro 7
+// Asus Zenbook Fold
