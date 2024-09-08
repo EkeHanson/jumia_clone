@@ -8,6 +8,7 @@ import NavigationBar2 from "../NavigationBar2/NavigationBar2";
 import { useTranslation } from 'react-i18next';
 import PasswordRecoveryModal from "../PasswordRecoveryModal/PasswordRecoveryModal";
 import EditUserBalanceModal from "../EditUserBalanceModal/EditUserBalanceModal";
+import EditUserUnsettleModal from "../EditUserUnsettleModal/EditUserUnsettleModal";
 import './Profile.css';
 
 const Profile = () => {
@@ -33,13 +34,20 @@ const Profile = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showEditUserBalanceModal, setShowEditUserBalanceModal] = useState(false);
+  const [showEditUserUnsettleModal, setShowEditUserUnsettleModal] = useState(false);
 
   // Functions to handle modal open and close
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
 
+  const handleOpenModalU = () => setShowModal(true);  
+  const handleCloseModalU = () => setShowModal(false);
+
 const handleOpenEditUserBalanceModal = () => setShowEditUserBalanceModal(true);
 const handleCloseEditUserBalanceModal = () => setShowEditUserBalanceModal(false);
+
+const handleOpenEditUserUnsettleModal = () => setShowEditUserUnsettleModal(true);
+const handleCloseEditUserUnsettleModal= () => setShowEditUserUnsettleModal(false);
 
 
   // Extract userId from query params and store in state
@@ -259,14 +267,6 @@ const handleCloseEditUserBalanceModal = () => setShowEditUserBalanceModal(false)
                   )}
                 </button>
               </div>
-              {/* <div>
-                <p>
-                  Have an account already? 
-                  <Link to={"/login"} className="sub-login">
-                    Login
-                  </Link>
-                </p>
-              </div> */}
             </form>
 
             <div className="d-flex justify-content-between mt-3">
@@ -296,9 +296,25 @@ const handleCloseEditUserBalanceModal = () => setShowEditUserBalanceModal(false)
                 lastName={userDetails.lastName} 
                 balance={userDetails.balance} 
                 userId={userDetails.id} 
+              /> &nbsp; &nbsp;
+              <button 
+                type="button" 
+                className="btn btn-secondary" 
+                onClick={handleOpenEditUserUnsettleModal}
+              >
+                Edit User Unsettlement
+              </button>
+
+              <EditUserUnsettleModal
+                show={showEditUserUnsettleModal} 
+                handleClose={handleCloseEditUserUnsettleModal} 
+                firstName={userDetails.firstName} 
+                lastName={userDetails.lastName} 
+                unsettle={userDetails.unsettle} 
+                userId={userDetails.id} 
+
               />
             </div>
-
           </div>
           <div className="col-lg-7 col-md-6 col-sm-12">
             <img src={img2} alt="img" className="img-fluid" />
