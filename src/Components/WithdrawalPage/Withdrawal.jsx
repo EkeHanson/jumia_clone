@@ -281,8 +281,8 @@ const Withdrawal = () => {
   );
 };
 
-Withdrawal.propTypes = {
-  t: PropTypes.func.isRequired,
-};
+// Withdrawal.propTypes = {
+//   t: PropTypes.func.isRequired,
+// };
 
 export default Withdrawal;

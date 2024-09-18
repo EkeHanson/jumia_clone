@@ -51,9 +51,8 @@ const AdminDashboard = () => {
     settings: false,
   });
 
- 
-
   const toggleSidebar = () => {
+    console.log("sidebarOpen: ", sidebarOpen);
     setSidebarOpen(!sidebarOpen);
   };
 
@@ -95,6 +94,7 @@ const AdminDashboard = () => {
     }
   };
 
+ 
   return (
     <div className="container-fluid">
       <div className="pb-5 mb-5">
