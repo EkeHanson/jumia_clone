@@ -119,7 +119,6 @@
 
 // export default LastJoined;
 
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"; // Import Link for routing
 import "./LastJoined.css";
@@ -131,6 +130,7 @@ const LastJoined = () => {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(10); // Number of users to display per page
+  const [pagesToShow] = useState(10); // Number of pages to display in pagination
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -138,11 +138,10 @@ const LastJoined = () => {
         const response = await fetch(`${djangoHostname}/api/accounts/users/`); // Replace with your API endpoint
         const data = await response.json();
 
-        // Check the structure of the response
-        // Assuming `data` is the array of user objects
+        // Sort users by date joined
         const sortedUsers = data.sort((a, b) => new Date(b.date_joined) - new Date(a.date_joined));
 
-        setUsers(sortedUsers); // Set sorted users to state
+        setUsers(sortedUsers);
         setFilteredUsers(sortedUsers); // Initialize filtered users
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -153,7 +152,7 @@ const LastJoined = () => {
   }, [djangoHostname]);
 
   const handleSearch = (query) => {
-    const filtered = users.filter(user => 
+    const filtered = users.filter(user =>
       `${user.firstName} ${user.lastName}`.toLowerCase().includes(query.toLowerCase()) ||
       user.invitationCode_display.code.toLowerCase().includes(query.toLowerCase())
     );
@@ -167,10 +166,68 @@ const LastJoined = () => {
 
   const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
 
-  const handlePageChange = (pageNumber) => {
-    if (pageNumber > 0 && pageNumber <= totalPages) {
-      setCurrentPage(pageNumber);
+  // Pagination logic
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const renderPagination = () => {
+    const pages = [];
+    const startPage = Math.max(1, currentPage - Math.floor(pagesToShow / 2));
+    const endPage = Math.min(totalPages, startPage + pagesToShow - 1);
+
+    // Add "Previous" button
+    if (currentPage > 1) {
+      pages.push(
+        <li key="prev" className="page-item">
+          <button onClick={() => paginate(currentPage - 1)} className="page-link">Previous</button>
+        </li>
+      );
     }
+
+    // Add first page and ellipsis if needed
+    if (startPage > 1) {
+      pages.push(
+        <li key="first" className="page-item">
+          <button onClick={() => paginate(1)} className="page-link">1</button>
+        </li>
+      );
+      if (startPage > 2) {
+        pages.push(<li key="ellipsis1" className="page-item disabled"><span className="page-link">...</span></li>);
+      }
+    }
+
+    // Generate page numbers
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(
+        <li key={i} className={`page-item ${i === currentPage ? "active" : ""}`}>
+          <button onClick={() => paginate(i)} className="page-link">{i}</button>
+        </li>
+      );
+    }
+
+    // Add last page and ellipsis if needed
+    if (endPage < totalPages - 1) {
+      pages.push(<li key="ellipsis2" className="page-item disabled"><span className="page-link">...</span></li>);
+    }
+    if (endPage < totalPages) {
+      pages.push(
+        <li key="last" className="page-item">
+          <button onClick={() => paginate(totalPages)} className="page-link">{totalPages}</button>
+        </li>
+      );
+    }
+
+    // Add "Next" button
+    if (currentPage < totalPages) {
+      pages.push(
+        <li key="next" className="page-item">
+          <button onClick={() => paginate(currentPage + 1)} className="page-link">Next</button>
+        </li>
+      );
+    }
+
+    return pages;
   };
 
   return (
@@ -226,52 +283,7 @@ const LastJoined = () => {
       {filteredUsers.length > 0 && (
         <nav>
           <ul className="pagination justify-content-center">
-            <li className="page-item">
-              <button
-                onClick={() => handlePageChange(1)}
-                className="page-link"
-                disabled={currentPage === 1}
-              >
-                First
-              </button>
-            </li>
-            <li className="page-item">
-              <button
-                onClick={() => handlePageChange(currentPage - 1)}
-                className="page-link"
-                disabled={currentPage === 1}
-              >
-                Previous
-              </button>
-            </li>
-            {Array.from({ length: totalPages }).map((_, index) => (
-              <li key={index} className="page-item">
-                <button
-                  onClick={() => handlePageChange(index + 1)}
-                  className={`page-link ${currentPage === index + 1 ? "active" : ""}`}
-                >
-                  {index + 1}
-                </button>
-              </li>
-            ))}
-            <li className="page-item">
-              <button
-                onClick={() => handlePageChange(currentPage + 1)}
-                className="page-link"
-                disabled={currentPage === totalPages}
-              >
-                Next
-              </button>
-            </li>
-            <li className="page-item">
-              <button
-                onClick={() => handlePageChange(totalPages)}
-                className="page-link"
-                disabled={currentPage === totalPages}
-              >
-                Last
-              </button>
-            </li>
+            {renderPagination()}
           </ul>
         </nav>
       )}
