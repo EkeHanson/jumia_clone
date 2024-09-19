@@ -35,15 +35,21 @@ const DashInfoCard = () => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
-
+    
         // Fetch account users data
         const usersResponse = await fetch(`${djangoHostname}/api/accounts/users/`);
         const usersData = await usersResponse.json();
-
+        // console.log("Users data:", usersData);
+    
+        // Check if results exist in the response
+        if (!Array.isArray(usersData.results)) {
+          throw new Error("Expected an array in usersData.results but got:", usersData.results);
+        }
+    
         // Fetch recharge data
         const rechargeResponse = await fetch(`${djangoHostname}/api/recharge/recharges/`);
         const rechargeData = await rechargeResponse.json();
-
+    
         // Fetch withdrawal data
         const withdrawalResponse = await fetch(`${djangoHostname}/api/withdrws/withdraw/`, {
           headers: {
@@ -51,34 +57,82 @@ const DashInfoCard = () => {
           },
         });
         const withdrawData = await withdrawalResponse.json();
-
+    
         // Calculate the total number of users
-        const totalUsers = usersData.length;
-
+        const totalUsers = usersData.count;
+    
         // Calculate the total top-up amount
-        const totalAmountTopUp = rechargeData.reduce(
-          (sum, recharge) => sum + parseFloat(recharge.amount_top_up),
-          0
-        );
-
+        const totalAmountTopUp = Array.isArray(rechargeData)
+          ? rechargeData.reduce((sum, recharge) => sum + parseFloat(recharge.amount_top_up), 0)
+          : 0;
+    
         // Calculate the total withdrawal amount
-        const totalAmountWithdraw = withdrawData.reduce(
-          (sum, withdraw) => sum + parseFloat(withdraw.amount),
-          0
-        );
-
+        const totalAmountWithdraw = Array.isArray(withdrawData)
+          ? withdrawData.reduce((sum, withdraw) => sum + parseFloat(withdraw.amount), 0)
+          : 0;
+    
+        // Use usersData.results for the user data calculations
         setDashboardData({
           activeUsers: totalUsers,
-          userBalance: usersData.reduce((sum, user) => sum + parseFloat(user.balance), 0),
-          deposit: usersData.reduce((sum, user) => sum + parseFloat(user.commission1), 0), 
-          withdrawals: usersData.reduce((sum, user) => sum + parseFloat(user.commission2), 0),
+          userBalance: usersData.results.reduce((sum, user) => sum + parseFloat(user.balance), 0),
+          deposit: usersData.results.reduce((sum, user) => sum + parseFloat(user.commission1), 0),
+          withdrawals: usersData.results.reduce((sum, user) => sum + parseFloat(user.commission2), 0),
           totalAmountTopUp: totalAmountTopUp,
-          totalAmountWithdraw: totalAmountWithdraw // Update with total withdrawal amount
+          totalAmountWithdraw: totalAmountWithdraw,
         });
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
       }
     };
+    
+    // const fetchData = async () => {
+    //   try {
+    //     const token = localStorage.getItem("token");
+
+    //     // Fetch account users data
+    //     const usersResponse = await fetch(`${djangoHostname}/api/accounts/users/`);
+    //     const usersData = await usersResponse.json();
+    //     console.log("Users data:", usersData);
+
+    //     // Fetch recharge data
+    //     const rechargeResponse = await fetch(`${djangoHostname}/api/recharge/recharges/`);
+    //     const rechargeData = await rechargeResponse.json();
+
+    //     // Fetch withdrawal data
+    //     const withdrawalResponse = await fetch(`${djangoHostname}/api/withdrws/withdraw/`, {
+    //       headers: {
+    //         Authorization: `Token ${token}`,
+    //       },
+    //     });
+    //     const withdrawData = await withdrawalResponse.json();
+
+    //     // Calculate the total number of users
+    //     const totalUsers = usersData.length;
+
+    //     // Calculate the total top-up amount
+    //     const totalAmountTopUp = rechargeData.reduce(
+    //       (sum, recharge) => sum + parseFloat(recharge.amount_top_up),
+    //       0
+    //     );
+
+    //     // Calculate the total withdrawal amount
+    //     const totalAmountWithdraw = withdrawData.reduce(
+    //       (sum, withdraw) => sum + parseFloat(withdraw.amount),
+    //       0
+    //     );
+
+    //     setDashboardData({
+    //       activeUsers: totalUsers,
+    //       userBalance: usersData.reduce((sum, user) => sum + parseFloat(user.balance), 0),
+    //       deposit: usersData.reduce((sum, user) => sum + parseFloat(user.commission1), 0), 
+    //       withdrawals: usersData.reduce((sum, user) => sum + parseFloat(user.commission2), 0),
+    //       totalAmountTopUp: totalAmountTopUp,
+    //       totalAmountWithdraw: totalAmountWithdraw // Update with total withdrawal amount
+    //     });
+    //   } catch (error) {
+    //     console.error("Error fetching dashboard data:", error);
+    //   }
+    // };
 
     fetchData();
   }, [djangoHostname]);
