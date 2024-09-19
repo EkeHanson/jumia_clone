@@ -317,6 +317,8 @@ const LastJoined = () => {
         const response = await fetch(currentPageUrl);
         const data = await response.json();
 
+        // console.log(data.results)
+
         // Update user state with results from API
         setUsers(data.results);
         setFilteredUsers(data.results);
@@ -405,34 +407,35 @@ const LastJoined = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredUsers.length > 0 ? (
-                filteredUsers.map((user, index) => (
-                  <tr key={user.id}>
-                    <th scope="row">{index + 1}</th>
-                    <td>
-                      <Link to={`/profile?userId=${user.id}`} className="text-decoration-none text-dark">
-                        {user.firstName} {user.lastName}
-                      </Link>
-                    </td>
-                    <td>
-                      <Link to={`/profile?userId=${user.id}`} className="text-decoration-none text-dark">
-                        {user.invitationCode_display.code}
-                      </Link>
-                    </td>
-                    <td>KSh {user.balance}</td>
-                    <td className="d-flex justify-content-center">
-                      <span className="timy text-light px-2 py-1 rounded">
-                        {new Date(user.date_joined).toLocaleString()}
-                      </span>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="5" className="text-center">No users found</td>
-                </tr>
-              )}
-            </tbody>
+  {filteredUsers.length > 0 ? (
+    filteredUsers.map((user, index) => (
+      <tr key={user.id}>
+        <th scope="row">{index + 1}</th>
+        <td>
+          <Link to={`/profile?userId=${user.id}`} className="text-decoration-none text-dark">
+            {user.firstName} {user.lastName}
+          </Link>
+        </td>
+        <td>
+          <Link to={`/profile?userId=${user.id}`} className="text-decoration-none text-dark">
+            {user.invitationCode_display?.code || "24597799c"} {/* Display "N/A" if code is null */}
+          </Link>
+        </td>
+        <td>KSh {user.balance}</td>
+        <td className="d-flex justify-content-center">
+          <span className="timy text-light px-2 py-1 rounded">
+            {new Date(user.date_joined).toLocaleString()}
+          </span>
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="5" className="text-center">No users found</td>
+    </tr>
+  )}
+</tbody>
+
           </table>
         </div>
       </div>
@@ -448,3 +451,4 @@ const LastJoined = () => {
 };
 
 export default LastJoined;
+
