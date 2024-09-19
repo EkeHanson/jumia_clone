@@ -330,6 +330,7 @@
 import { useState, useEffect } from "react";
 import "./Vip2Details.css";
 import { Link } from "react-router-dom";
+import SearchL from "../SearchL/SearchL";
 
 const Vip2Details = () => {
   const djangoHostname = import.meta.env.VITE_DJANGO_HOSTNAME;
@@ -346,9 +347,9 @@ const Vip2Details = () => {
   useEffect(() => {
     const fetchVip2Users = async (page = 1) => {
       try {
-        const response = await fetch(`${djangoHostname}/api/accounts/users/by-level/VIP2/?page=${page}`);
+        const response = await fetch(`${djangoHostname}/api/accounts/users/by-level/VIP2/`);
         const data = await response.json();
-        setVip2Users(data.results);  // assuming response has 'results' field
+        setVip2Users(data);  // assuming response has 'results' field
         setTotalPages(Math.ceil(data.count / usersPerPage));  // assuming response has 'count' field
       } catch (error) {
         console.error("Error fetching VIP 2 users:", error);
@@ -359,6 +360,17 @@ const Vip2Details = () => {
 
     fetchVip2Users(currentPage);
   }, [currentPage]);
+
+
+  const handleSearch = (query) => {
+    const filtered = vipUsers.filter(user =>
+      `${user.firstName} ${user.lastName}`.toLowerCase().includes(query.toLowerCase()) ||
+      (user.invitationCode_display && user.invitationCode_display.code.toLowerCase().includes(query.toLowerCase()))
+    );
+    setVipUsers(filtered); // Update the state with the filtered users
+    setCurrentPage(1); // Reset to first page on search
+  };
+
 
   const promoteToVip3 = async (userId) => {
     const isConfirmed = window.confirm("Are you sure you want to promote this user to VIP3 ?");
@@ -462,6 +474,7 @@ const Vip2Details = () => {
       <div className="container bg-light rounded">
         <div className="row">
           <div className="table-responsive">
+          <SearchL onSearch={handleSearch} />
             <table className="table caption-top text-center">
               <caption className="text-center fs-2 fw-bold text-dark py-3">
                 VIP 2 Users
@@ -481,7 +494,7 @@ const Vip2Details = () => {
                   <tr key={user.id}>
                     <th scope="row">{indexOfFirstUser + index + 1}</th>
                     <td>{user.firstName}</td>
-                    <td>{user.invitationCode_display?.code || "N/A"}</td>
+                    <td>{user.invitationCode_display?.code || "N9e75e38a6dA"}</td>
                     <td>${user.balance}</td>
                     <td>({user.grabbed_orders_count})</td>
                     <td className="d-flex justify-content-center">

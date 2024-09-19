@@ -301,45 +301,58 @@
 
 // export default Vip1Details;
 
+
 import { useEffect, useState } from "react";
 import "./Vip1Details.css";
 import { Link } from "react-router-dom";
+import SearchL from "../SearchL/SearchL";
 
 const Vip1Details = () => {
   const djangoHostname = import.meta.env.VITE_DJANGO_HOSTNAME;
   const [vipUsers, setVipUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [deleting, setDeleting] = useState(null); // State to track loading status
-  const [promoting, setPromoting] = useState(null); // State to track loading status
-  const usersPerPage = 10; // Assuming 10 users per page
+  const [deleting, setDeleting] = useState(null);
+  const [promoting, setPromoting] = useState(null);
+  const usersPerPage = 10;
+  const pagesToShow = 10;
+  const [startPage, setStartPage] = useState(1);
 
-  // Pagination control
-  const pagesToShow = 10; // Number of pages to display at a time
-  const [startPage, setStartPage] = useState(1); // Starting page for the pagination
-
-  // Fetch VIP 1 users from the backend
   useEffect(() => {
     const fetchVipUsers = async (page = 1) => {
       try {
-        const response = await fetch(`${djangoHostname}/api/accounts/users/by-level/VIP1/?page=${page}`); // API with pagination
+        const response = await fetch(`${djangoHostname}/api/accounts/users/by-level/VIP1/`);
         const data = await response.json();
-        setVipUsers(data.results); // 'results' contains the paginated users
-        setTotalPages(Math.ceil(data.count / usersPerPage)); // Calculate total pages
+        setVipUsers(data); // Ensure vipUsers is always an array
+        setTotalPages(Math.ceil(data.count / usersPerPage));
       } catch (error) {
         console.error("Error fetching VIP users:", error);
       }
     };
 
-    fetchVipUsers(currentPage); // Fetch users for the current page
+    fetchVipUsers(currentPage);
   }, [currentPage]);
 
-  // Handle Promotion
+  const handleSearch = (query) => {
+    const filtered = vipUsers.filter(user =>
+      `${user.firstName} ${user.lastName}`.toLowerCase().includes(query.toLowerCase()) ||
+      (user.invitationCode_display && user.invitationCode_display.code.toLowerCase().includes(query.toLowerCase()))
+    );
+    setVipUsers(filtered); // Update the state with the filtered users
+    setCurrentPage(1); // Reset to first page on search
+  };
+
+  const paginate = (url) => {
+    if (url) {
+      setCurrentPageUrl(url);
+    }
+  };
+
   const handlePromote = async (userId) => {
     const isConfirmed = window.confirm("Are you sure you want to promote this user?");
-    if (!isConfirmed) return; // If the user cancels, exit the function
+    if (!isConfirmed) return;
 
-    setPromoting(userId); // Set loading state to the user ID
+    setPromoting(userId);
     try {
       const response = await fetch(`${djangoHostname}/api/accounts/users/${userId}/`, {
         method: "PATCH",
@@ -355,49 +368,44 @@ const Vip1Details = () => {
       });
 
       if (response.ok) {
-        setVipUsers(vipUsers.filter((user) => user.id !== userId)); // Update the state to remove the promoted user
+        setVipUsers(vipUsers.filter((user) => user.id !== userId));
       } else {
         alert("Failed to promote user.");
       }
     } catch (error) {
       console.error("Error promoting user:", error);
     } finally {
-      setPromoting(null); // Reset loading state
+      setPromoting(null);
     }
   };
 
-  // Handle Deletion
   const handleDelete = async (userId) => {
     const isConfirmed = window.confirm("Are you sure you want to delete this user?");
     if (!isConfirmed) return;
 
-    setDeleting(userId); // Set loading state to the user ID
-
+    setDeleting(userId);
     try {
       const response = await fetch(`${djangoHostname}/api/accounts/users/${userId}/`, {
         method: "DELETE",
       });
       if (response.ok) {
-        setVipUsers(vipUsers.filter((user) => user.id !== userId)); // Update the state to remove the deleted user
+        setVipUsers(vipUsers.filter((user) => user.id !== userId));
       } else {
         alert("Failed to delete user.");
       }
     } catch (error) {
       console.error("Error deleting user:", error);
     } finally {
-      setDeleting(null); // Reset loading state
+      setDeleting(null);
     }
   };
 
-  // Calculate Serial Number for each user
   const indexOfFirstUser = (currentPage - 1) * usersPerPage;
 
-  // Handle page change
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  // Handle next and previous buttons
   const handleNextSet = () => {
     if (startPage + pagesToShow <= totalPages) {
       setStartPage(startPage + pagesToShow);
@@ -410,7 +418,6 @@ const Vip1Details = () => {
     }
   };
 
-  // Create pagination items for current set
   const paginationItems = Array.from({ length: Math.min(pagesToShow, totalPages - startPage + 1) }, (_, i) => {
     const page = startPage + i;
     return (
@@ -435,6 +442,7 @@ const Vip1Details = () => {
       <div className="container bg-light rounded">
         <div className="row">
           <div className="table-responsive">
+            <SearchL onSearch={handleSearch} />
             <table className="table caption-top text-center">
               <caption className="text-center fs-2 fw-bold text-dark py-3">VIP1 Users</caption>
               <thead>
@@ -448,53 +456,50 @@ const Vip1Details = () => {
                 </tr>
               </thead>
               <tbody>
-                {vipUsers.map((user, index) => (
-                  <tr key={user.id}>
-                    <td>{indexOfFirstUser + index + 1}</td> {/* Serial Number */}
-                    <td>{user.firstName}</td>
-                    <td>{user.invitationCode_display?.code || "30e7877794N/A"}</td>
-                    <td>{user.balance}</td>
-                    <td>{user.grabbed_orders_count}</td>
-                    <td>
-                      <button
-                        className="timy text-light border-0 px-2 py-1 rounded"
-                        onClick={() => handlePromote(user.id)}
-                        style={{ cursor: "pointer" }}
-                      >
-                        {promoting === user.id ? (
-                          <button
-                            className="spinner-border spinner-border-sm text-light"
-                            role="status"
-                            aria-hidden="true"
-                          ></button>
-                        ) : (
-                          "Promote"
-                        )}
-                      </button>
-                      <button
-                        className="bg-danger border-0 text-light px-2 mx-1 py-1 rounded"
-                        onClick={() => handleDelete(user.id)}
-                        style={{ cursor: "pointer" }}
-                      >
-                        {deleting === user.id ? (
-                          <button
-                            className="spinner-border spinner-border-sm text-light"
-                            role="status"
-                            aria-hidden="true"
-                          ></button>
-                        ) : (
-                          <i className="bi bi-trash3"></i>
-                        )}
-                      </button>
-                    </td>
+                {vipUsers.length > 0 ? (
+                  vipUsers.map((user, index) => (
+                    <tr key={user.id}>
+                      <td>{indexOfFirstUser + index + 1}</td>
+                      <td>{user.firstName}</td>
+                      <td>{user.invitationCode_display?.code || "N9e75e38a6dA"}</td>
+                      <td>{user.balance}</td>
+                      <td>{user.grabbed_orders_count}</td>
+                      <td>
+                        <button
+                          className="timy text-light border-0 px-2 py-1 rounded"
+                          onClick={() => handlePromote(user.id)}
+                          style={{ cursor: "pointer" }}
+                        >
+                          {promoting === user.id ? (
+                            <span className="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span>
+                          ) : (
+                            "Promote"
+                          )}
+                        </button>
+                        <button
+                          className="bg-danger border-0 text-light px-2 mx-1 py-1 rounded"
+                          onClick={() => handleDelete(user.id)}
+                          style={{ cursor: "pointer" }}
+                        >
+                          {deleting === user.id ? (
+                            <span className="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span>
+                          ) : (
+                            <i className="bi bi-trash3"></i>
+                          )}
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="6">No users found.</td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>
         </div>
       </div>
-      {/* Pagination Controls */}
       <nav>
         <ul className="pagination justify-content-center">
           <li className={`page-item ${startPage === 1 ? "disabled" : ""}`}>

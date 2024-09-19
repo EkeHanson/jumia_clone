@@ -293,7 +293,6 @@
 
 // export default LastJoined;
 
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./LastJoined.css";
@@ -316,18 +315,11 @@ const LastJoined = () => {
       try {
         const response = await fetch(currentPageUrl);
         const data = await response.json();
-
-        // console.log(data.results)
-
-        // Update user state with results from API
         setUsers(data.results);
-        setFilteredUsers(data.results);
-
-        // Handle pagination data
+        setFilteredUsers(data.results); // Initialize filteredUsers with all users
         setNextPageUrl(data.next);
         setPreviousPageUrl(data.previous);
         setTotalPages(Math.ceil(data.count / usersPerPage));
-
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -337,9 +329,9 @@ const LastJoined = () => {
   }, [currentPageUrl]);
 
   const handleSearch = (query) => {
-    const filtered = users.filter(user =>
+    const filtered = users.filter(user => 
       `${user.firstName} ${user.lastName}`.toLowerCase().includes(query.toLowerCase()) ||
-      user.invitationCode_display.code.toLowerCase().includes(query.toLowerCase())
+      (user.invitationCode_display && user.invitationCode_display.code.toLowerCase().includes(query.toLowerCase()))
     );
     setFilteredUsers(filtered);
     setCurrentPage(1); // Reset to first page on search
@@ -356,7 +348,6 @@ const LastJoined = () => {
     const startPage = Math.max(1, currentPage - Math.floor(pagesToShow / 2));
     const endPage = Math.min(totalPages, startPage + pagesToShow - 1);
   
-    // Add "Previous" button
     if (previousPageUrl) {
       pages.push(
         <li key="prev" className="page-item">
@@ -365,7 +356,6 @@ const LastJoined = () => {
       );
     }
   
-    // Generate page numbers
     for (let i = startPage; i <= endPage; i++) {
       const pageUrl = `${djangoHostname}/api/accounts/users/?page=${i}`;
       pages.push(
@@ -375,7 +365,6 @@ const LastJoined = () => {
       );
     }
   
-    // Add "Next" button
     if (nextPageUrl) {
       pages.push(
         <li key="next" className="page-item">
@@ -386,7 +375,6 @@ const LastJoined = () => {
   
     return pages;
   };
-  
 
   return (
     <div className="container-fluid my-5 bg-light rounded">
@@ -407,35 +395,34 @@ const LastJoined = () => {
               </tr>
             </thead>
             <tbody>
-  {filteredUsers.length > 0 ? (
-    filteredUsers.map((user, index) => (
-      <tr key={user.id}>
-        <th scope="row">{index + 1}</th>
-        <td>
-          <Link to={`/profile?userId=${user.id}`} className="text-decoration-none text-dark">
-            {user.firstName} {user.lastName}
-          </Link>
-        </td>
-        <td>
-          <Link to={`/profile?userId=${user.id}`} className="text-decoration-none text-dark">
-            {user.invitationCode_display?.code || "N/A"} {/* Display "N/A" if code is null */}
-          </Link>
-        </td>
-        <td>KSh {user.balance}</td>
-        <td className="d-flex justify-content-center">
-          <span className="timy text-light px-2 py-1 rounded">
-            {new Date(user.date_joined).toLocaleString()}
-          </span>
-        </td>
-      </tr>
-    ))
-  ) : (
-    <tr>
-      <td colSpan="5" className="text-center">No users found</td>
-    </tr>
-  )}
-</tbody>
-
+              {filteredUsers.length > 0 ? (
+                filteredUsers.map((user, index) => (
+                  <tr key={user.id}>
+                    <th scope="row">{index + 1}</th>
+                    <td>
+                      <Link to={`/profile?userId=${user.id}`} className="text-decoration-none text-dark">
+                        {user.firstName} {user.lastName}
+                      </Link>
+                    </td>
+                    <td>
+                      <Link to={`/profile?userId=${user.id}`} className="text-decoration-none text-dark">
+                        {user.invitationCode_display?.code || "N9e75e38a6dA"}
+                      </Link>
+                    </td>
+                    <td>KSh {user.balance}</td>
+                    <td className="d-flex justify-content-center">
+                      <span className="timy text-light px-2 py-1 rounded">
+                        {new Date(user.date_joined).toLocaleString()}
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" className="text-center">No users found</td>
+                </tr>
+              )}
+            </tbody>
           </table>
         </div>
       </div>
@@ -451,4 +438,3 @@ const LastJoined = () => {
 };
 
 export default LastJoined;
-

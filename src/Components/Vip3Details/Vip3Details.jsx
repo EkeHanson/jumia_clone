@@ -85,13 +85,14 @@
 // };
 
 // export default Vip3Details;
-
 import { useState, useEffect } from "react";
 import "./Vip3Details.css";
 import { Link } from "react-router-dom";
+import SearchL from "../SearchL/SearchL";
 
 const Vip3Details = () => {
   const [vip3Users, setVip3Users] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]); // State for filtered users
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -105,9 +106,10 @@ const Vip3Details = () => {
   useEffect(() => {
     const fetchVip3Users = async (page = 1) => {
       try {
-        const response = await fetch(`${djangoHostname}/api/accounts/users/by-level/VIP3/?page=${page}`);
+        const response = await fetch(`${djangoHostname}/api/accounts/users/by-level/VIP3/`);
         const data = await response.json();
-        setVip3Users(data.results);
+        setVip3Users(data);
+        setFilteredUsers(data); // Initialize filtered users
         setTotalPages(Math.ceil(data.count / usersPerPage));
       } catch (error) {
         console.error("Error fetching VIP 3 users:", error);
@@ -119,7 +121,17 @@ const Vip3Details = () => {
     fetchVip3Users(currentPage);
   }, [currentPage]);
 
+  const handleSearch = (query) => {
+    const filtered = vip3Users.filter(user =>
+      `${user.firstName} ${user.lastName}`.toLowerCase().includes(query.toLowerCase()) ||
+      (user.invitationCode_display && user.invitationCode_display.code.toLowerCase().includes(query.toLowerCase()))
+    );
+    setFilteredUsers(filtered); // Update the state with the filtered users
+    setCurrentPage(1); // Reset to first page on search
+  };
+
   const indexOfFirstUser = (currentPage - 1) * usersPerPage;
+  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfFirstUser + usersPerPage); // Paginated current users
 
   const handleNextPage = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
@@ -160,6 +172,7 @@ const Vip3Details = () => {
       <div className="container bg-light rounded">
         <div className="row">
           <div className="table-responsive">
+            <SearchL onSearch={handleSearch} />
             <table className="table caption-top text-center">
               <caption className="text-center fs-2 fw-bold text-dark py-3">
                 VIP 3 Users
@@ -175,11 +188,11 @@ const Vip3Details = () => {
                 </tr>
               </thead>
               <tbody>
-                {vip3Users.map((user, index) => (
+                {currentUsers.map((user, index) => (
                   <tr key={user.id}>
                     <th scope="row">{indexOfFirstUser + index + 1}</th>
                     <td>{user.firstName}</td>
-                    <td>{user.invitationCode_display?.code || "N/A"}</td>
+                    <td>{user.invitationCode_display?.code || "N9e75e38a6dA"}</td>
                     <td>${user.balance}</td>
                     <td>({user.grabbed_orders_count})</td>
                     <td className="d-flex justify-content-center">
@@ -189,11 +202,7 @@ const Vip3Details = () => {
                         disabled={demoting === user.id}
                       >
                         {demoting === user.id ? (
-                          <span
-                            className="spinner-border spinner-border-sm text-light"
-                            role="status"
-                            aria-hidden="true"
-                          ></span>
+                          <span className="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span>
                         ) : (
                           "Demote"
                         )}
@@ -205,11 +214,7 @@ const Vip3Details = () => {
                         disabled={deleting === user.id}
                       >
                         {deleting === user.id ? (
-                          <span
-                            className="spinner-border spinner-border-sm text-light"
-                            role="status"
-                            aria-hidden="true"
-                          ></span>
+                          <span className="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span>
                         ) : (
                           <i className="bi bi-trash3"></i>
                         )}
