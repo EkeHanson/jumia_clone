@@ -103,13 +103,31 @@ const Vip3Details = () => {
 
   const djangoHostname = import.meta.env.VITE_DJANGO_HOSTNAME;
 
+  // useEffect(() => {
+  //   const fetchVip3Users = async (page = 1) => {
+  //     try {
+  //       const response = await fetch(`${djangoHostname}/api/accounts/users/by-level/VIP3/`);
+  //       const data = await response.json();
+  //       setVip3Users(data);
+  //       setFilteredUsers(data); // Initialize filtered users
+  //       setTotalPages(Math.ceil(data.count / usersPerPage));
+  //     } catch (error) {
+  //       console.error("Error fetching VIP 3 users:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchVip3Users(currentPage);
+  // }, [currentPage]);
   useEffect(() => {
     const fetchVip3Users = async (page = 1) => {
       try {
         const response = await fetch(`${djangoHostname}/api/accounts/users/by-level/VIP3/`);
         const data = await response.json();
-        setVip3Users(data);
-        setFilteredUsers(data); // Initialize filtered users
+       // console.log(data);  // Check the structure of data
+        setVip3Users(data.results); // Assuming 'results' contains the array of users
+        setFilteredUsers(data.results); // Ensure this is an array
         setTotalPages(Math.ceil(data.count / usersPerPage));
       } catch (error) {
         console.error("Error fetching VIP 3 users:", error);
@@ -117,9 +135,11 @@ const Vip3Details = () => {
         setLoading(false);
       }
     };
-
+  
     fetchVip3Users(currentPage);
   }, [currentPage]);
+  
+  
 
   const handleSearch = (query) => {
     const filtered = vip3Users.filter(user =>

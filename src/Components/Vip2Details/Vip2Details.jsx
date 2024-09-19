@@ -344,22 +344,40 @@ const Vip2Details = () => {
 
   const usersPerPage = 10;
 
+  // useEffect(() => {
+  //   const fetchVip2Users = async (page = 1) => {
+  //     try {
+  //       const response = await fetch(`${djangoHostname}/api/accounts/users/by-level/VIP2/`);
+  //       const data = await response.json();
+  //       setVip2Users(data);  // assuming response has 'results' field
+  //       setTotalPages(Math.ceil(data.count / usersPerPage));  // assuming response has 'count' field
+  //     } catch (error) {
+  //       console.error("Error fetching VIP 2 users:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchVip2Users(currentPage);
+  // }, [currentPage]);
   useEffect(() => {
     const fetchVip2Users = async (page = 1) => {
       try {
         const response = await fetch(`${djangoHostname}/api/accounts/users/by-level/VIP2/`);
         const data = await response.json();
-        setVip2Users(data);  // assuming response has 'results' field
-        setTotalPages(Math.ceil(data.count / usersPerPage));  // assuming response has 'count' field
+        //console.log(data);  // Check the structure of the API response
+        setVip2Users(data.results || []);  // Ensure it's an array
+        setTotalPages(Math.ceil(data.count / usersPerPage));  // Use data.count to calculate total pages
       } catch (error) {
         console.error("Error fetching VIP 2 users:", error);
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchVip2Users(currentPage);
   }, [currentPage]);
+  
 
 
   const handleSearch = (query) => {
