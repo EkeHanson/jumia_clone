@@ -214,7 +214,7 @@ const Vip1Details = () => {
                   <tr key={user.id}>
                     <th scope="row">{indexOfFirstUser + index + 1}</th>
                     <td>{user.firstName}</td>
-                    <td>{user.invitationCode_display.code}</td>
+                    <td>{user.invitationCode_display?.code || "N/A"} </td>
                     <td>${user.balance}</td>
                     <td>({user.grabbed_orders_count})</td>
                     <td className="d-flex justify-content-center px-3">
