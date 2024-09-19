@@ -418,7 +418,7 @@ const LastJoined = () => {
         </td>
         <td>
           <Link to={`/profile?userId=${user.id}`} className="text-decoration-none text-dark">
-            {user.invitationCode_display?.code || "24597799c"} {/* Display "N/A" if code is null */}
+            {user.invitationCode_display?.code || "N/A"} {/* Display "N/A" if code is null */}
           </Link>
         </td>
         <td>KSh {user.balance}</td>
