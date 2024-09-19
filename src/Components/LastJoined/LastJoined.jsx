@@ -353,7 +353,7 @@ const LastJoined = () => {
     const pages = [];
     const startPage = Math.max(1, currentPage - Math.floor(pagesToShow / 2));
     const endPage = Math.min(totalPages, startPage + pagesToShow - 1);
-
+  
     // Add "Previous" button
     if (previousPageUrl) {
       pages.push(
@@ -362,16 +362,17 @@ const LastJoined = () => {
         </li>
       );
     }
-
+  
     // Generate page numbers
     for (let i = startPage; i <= endPage; i++) {
+      const pageUrl = `${djangoHostname}/api/accounts/users/?page=${i}`;
       pages.push(
         <li key={i} className={`page-item ${i === currentPage ? "active" : ""}`}>
-          <button onClick={() => setCurrentPage(i)} className="page-link">{i}</button>
+          <button onClick={() => paginate(pageUrl)} className="page-link">{i}</button>
         </li>
       );
     }
-
+  
     // Add "Next" button
     if (nextPageUrl) {
       pages.push(
@@ -380,9 +381,10 @@ const LastJoined = () => {
         </li>
       );
     }
-
+  
     return pages;
   };
+  
 
   return (
     <div className="container-fluid my-5 bg-light rounded">
