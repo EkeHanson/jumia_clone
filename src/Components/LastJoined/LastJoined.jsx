@@ -327,16 +327,32 @@ const LastJoined = () => {
 
     fetchUsers();
   }, [currentPageUrl]);
-
-  const handleSearch = (query) => {
-    const filtered = users.filter(user => 
-      `${user.firstName} ${user.lastName}`.toLowerCase().includes(query.toLowerCase()) ||
-      (user.invitationCode_display && user.invitationCode_display.code.toLowerCase().includes(query.toLowerCase()))
-    );
-    setFilteredUsers(filtered);
-    setCurrentPage(1); // Reset to first page on search
+  const handleSearch = async (query) => {
+    if (!query) {
+      setFilteredUsers(users); // If query is empty, show all users
+      return;
+    }
+  
+    try {
+      // Make a GET request to search-users endpoint
+      // const response = await fetch(`http://127.0.0.1:9090//api/accounts/search-users/?q=${query}`);
+      const response = await fetch(`${djangoHostname}/api/accounts/search-users/?q=${query}`);
+      const data = await response.json();
+  
+      // Check if the response contains results and update state accordingly
+      if (response.ok) {
+        setFilteredUsers(data); // Assuming 'data' is an array of matching users
+      } else {
+        setFilteredUsers([]); // If no results found
+      }
+  
+      setCurrentPage(1); // Reset to first page on search
+    } catch (error) {
+      console.error("Error searching users:", error);
+      setFilteredUsers([]); // Handle error by setting no users found
+    }
   };
-
+  
   const paginate = (url) => {
     if (url) {
       setCurrentPageUrl(url);
