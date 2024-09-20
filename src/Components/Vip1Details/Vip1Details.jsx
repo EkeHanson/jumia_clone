@@ -541,7 +541,7 @@ const Vip1Details = () => {
   useEffect(() => {
     const fetchVipUsers = async (page = 1) => {
       try {
-        const response = await fetch(`${djangoHostname}/api/accounts/users/by-level/VIP3/?page=${page}`);
+        const response = await fetch(`${djangoHostname}/api/accounts/users/by-level/VIP1/?page=${page}`);
         const data = await response.json();
         setVipUsers(data.results); // Set results to vipUsers
         setTotalPages(Math.ceil(data.count / usersPerPage));
