@@ -635,7 +635,7 @@ const Vip1Details = () => {
           <div className="table-responsive">
             <SearchL onSearch={handleSearch} />
             <table className="table caption-top text-center">
-              <caption className="text-center fs-2 fw-bold text-dark py-3">VIP3 Users</caption>
+              <caption className="text-center fs-2 fw-bold text-dark py-3">VIP1 Users</caption>
               <thead>
                 <tr>
                   <th scope="col">#No.</th>
